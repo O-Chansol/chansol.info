@@ -1,9 +1,0 @@
-# Repository metadata and deployment tooling are not website assets.
-.git/
-.gitignore
-.assetsignore
-.wrangler/
-node_modules/
-wrangler.json
-wrangler.jsonc
-wrangler.toml
