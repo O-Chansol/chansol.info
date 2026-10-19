@@ -8,7 +8,8 @@
         td { overflow-wrap: anywhere;}
     </style>
     <script>
-        function search() { window.location.href = "https://www.google.com/search?q=" + document.getElementById("q").value + " site:chansol.info";}
+        function search() { window.location.href = "https://www.google.com/search?q=" + document.getElementById("searchq").value + " site:chansol.info";}
+        function send() { window.location.href = "https://chatgpt.com/?q=" + document.getElementById("sendq").value + " site:chansol.info";}
     </script>
 </head>
 <body style="text-align: center;">
@@ -39,7 +40,7 @@
             <td width="360" valign="top" style="text-align: left;">
                 <br>
                 <div style="text-align: center;">
-                    <input type="text" id="q">
+                    <input type="text" id="searchq">
                     <input type="button" value="search" onclick="search()">
                 </div>
                 <br><a href="/others/mathematics/aionmathematics.html">AI on Mathematics</a>
@@ -73,6 +74,11 @@
                 <br>...
             </td>
             <td width="360" valign="top" style="text-align: right;">
+                <br>
+                <div style="text-align: center;">
+                    <input type="text" id="sendq">
+                    <input type="button" value="ask" onclick="send()">
+                </div>
                 <br>
                 <a href="/others/posts/tempan.html">📌 Temporary Announcements</a>
                 <br>...
