@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .node {
+            stroke-width: 1;
+            stroke: black;
+        }
+        .society {
+            fill: rgb(255,191,191);
+        }
+        .family {
+            fill: rgb(255,255,127);
+        }
+        .input {
+            fill: rgb(191,255,191);
+        }
+        .process {
+            fill: rgb(127,255,255);
+        }
+        .output {
+            fill: rgb(191,191,255);
+        }
+        .edge {
+            stroke: #000000;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+<body>
+    <svg width="5000" height="5000">
+        <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z"/>
+            </marker>
+        </defs>
+        <g class="edge">
+            <line x1="170" y1="55" x2="490" y2="100" marker-end="url(#arrow)"/>
+            <line x1="410" y1="55" x2="490" y2="100" marker-end="url(#arrow)"/>
+        </g>
+        <a href="/history/00.html">
+            <g class="node family">
+                <rect width="160" height="90" x="10" y="10"/>
+            </g>
+            <text x="90" y="30" text-anchor="middle" dominant-baseline="central">푸른초등학교</text>
+            <text x="90" y="55" text-anchor="middle" dominant-baseline="central">2016.03.02.-</text>
+            <text x="90" y="80" text-anchor="middle" dominant-baseline="central">00</text>
+        </a>
+        <a href="/history/01.html">
+            <g class="node input">
+                <rect width="160" height="90" x="250" y="10"/>
+            </g>
+            <text x="330" y="30" text-anchor="middle" dominant-baseline="central">만화 탐구</text>
+            <text x="330" y="55" text-anchor="middle" dominant-baseline="central">2016.○○. 중-</text>
+            <text x="330" y="80" text-anchor="middle" dominant-baseline="central">01</text>
+        </a>
+        <a href="/history/02.html">
+            <g class="node output">
+                <rect width="160" height="90" x="490" y="55"/>
+            </g>
+            <text x="570" y="75" text-anchor="middle" dominant-baseline="central">만화 창작</text>
+            <text x="570" y="100" text-anchor="middle" dominant-baseline="central">2016.○○. 중-</text>
+            <text x="570" y="125" text-anchor="middle" dominant-baseline="central">02</text>
+        </a>
+        <a href="/history/03.html">
+            <g class="node input">
+                <rect width="160" height="90" x="490" y="190"/>
+            </g>
+            <text x="570" y="210" text-anchor="middle" dominant-baseline="central">게임 탐구</text>
+            <text x="570" y="235" text-anchor="middle" dominant-baseline="central">201?.○○. 중-</text>
+            <text x="570" y="260" text-anchor="middle" dominant-baseline="central">03</text>
+        </a>
+        <a href="/history/04.html">
+            <g class="node family">
+                <rect width="160" height="90" x="10" y="10"/>
+            </g>
+            <text x="90" y="30" text-anchor="middle" dominant-baseline="central">영재학교 대비</text>
+            <text x="90" y="55" text-anchor="middle" dominant-baseline="central">2016.03.02.</text>
+            <text x="90" y="80" text-anchor="middle" dominant-baseline="central">00, 초등생기부</text>
+        </a>
+        <a href="/history/00.html">
+            <g class="node family">
+                <rect width="160" height="90" x="10" y="10"/>
+            </g>
+            <text x="90" y="30" text-anchor="middle" dominant-baseline="central">푸른초등학교</text>
+            <text x="90" y="55" text-anchor="middle" dominant-baseline="central">2016.03.02.</text>
+            <text x="90" y="80" text-anchor="middle" dominant-baseline="central">00, 초등생기부</text>
+        </a>
+        <a href="/history/00.html">
+            <g class="node family">
+                <rect width="160" height="90" x="10" y="10"/>
+            </g>
+            <text x="90" y="30" text-anchor="middle" dominant-baseline="central">푸른초등학교</text>
+            <text x="90" y="55" text-anchor="middle" dominant-baseline="central">2016.03.02.</text>
+            <text x="90" y="80" text-anchor="middle" dominant-baseline="central">00, 초등생기부</text>
+        </a>
+    </svg>
+</body>
+</html>
