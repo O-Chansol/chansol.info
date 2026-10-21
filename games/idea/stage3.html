@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Idea</title>
+        <div id="char"></div>
+        <div id="message">Stage 3. Vibration</div>
+        <a href="stage3.html" id="restart">Try again</div>
+        <a href="stage4.html" id="nextstage">Next stage</div>
+        <a href="mainpage.html" id="exit">Exit</div>
+    </head>
+    <body>
+        <style>
+            *{
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            body{
+                background-color: lightsalmon;
+            }
+            #char{
+                width: 80px;
+                height: 80px;
+                border: 5px solid tomato;
+                background-color: salmon;
+                position: absolute;
+                left: 300px;
+                top: 444px;
+            }
+            #message{
+                color: white;
+                font-size: 5rem;
+                text-align: center;
+                user-select: none;
+            }
+            a{
+                font-size: 30px;
+                border: none;
+                text-decoration: none;
+                display: none;
+                position: absolute;
+                top: 95%;
+            }
+            #restart{
+                color: white;
+                background-color: rgb(125, 0, 125);
+                left: 90%;
+            }
+            #nextstage{
+                color: rgb(0, 0, 0);
+                background-color: rgb(255, 122, 0);
+                left: 88%;
+            }
+            #exit{
+                color: rgb(0, 0, 0);
+                background-color: rgb(0, 255, 0);
+                left: 97%;
+            }
+        </style>
+        <script>
+            var y = 444, life = 1, time = 0;
+            window.addEventListener("keydown", function(){move(event);});
+            function convert(x){ return Number(x.slice(0, x.length - 2));}
+            function message(str){ document.getElementById("message").innerHTML = str;}
+            function move(){
+                if(event.key == "ArrowUp"){y -= 40;}
+                else if(event.key == "ArrowDown"){y += 40;}
+                if(y < 0){y = 0;} else if(y > 888){y = 888;}
+                document.getElementById("char").style.top = y + "px";
+            }
+            function make_obstacle(){
+                var obs = document.createElement("DIV");
+                document.body.appendChild(obs);
+                obs.style.width = 80 + "px";
+                obs.style.height = 80 + "px";
+                obs.style.backgroundColor = "tomato";
+                obs.style.border = "5px solid red";
+                obs.style.position = "absolute";
+                obs.style.left = "2000px";
+                obs.style.top = 888*Math.random() + "px";
+                var obs_move = setInterval(function(){
+                    obs.style.left = convert(obs.style.left) - 10 + 20*(2*Math.random() - 1) + "px";
+                    if(Math.abs(convert(obs.style.left) - 300) <= 80 && Math.abs(convert(obs.style.top) - y) <= 80 && life == 1){
+                        life--; gameover("lose"); clearInterval(obs_move);
+                    }
+                    if(convert(obs.style.left) <= -80){
+                        obs.remove(); clearInterval(obs_move);
+                    }
+                }, 25);
+            }
+            function finish(){
+                var obs = document.createElement("DIV");
+                document.body.appendChild(obs);
+                obs.style.width = 5 + "px";
+                obs.style.height = 100 + "%";
+                obs.style.backgroundColor = "red";
+                obs.style.position = "absolute";
+                obs.style.left = "2000px";
+                obs.style.top = "0px";
+                var obs_move = setInterval(function(){
+                    obs.style.left = convert(obs.style.left) - 10 + "px";
+                    if(obs.style.left == "380px" && life == 1){
+                        clearInterval(game);
+                        gameover("win"); clearInterval(obs_move);
+                    }
+                }, 25);
+            }
+            function gameover(res){
+                if(res == "lose"){
+                    clearInterval(game);
+                    document.getElementById("restart").style.display = "block";
+                    document.getElementById("exit").style.display = "block";
+                    message("Fail");
+                    setTimeout(function(){message(time - 17 + "%");}, 1000);
+                } else if(res == "win"){
+                    document.getElementById("nextstage").style.display = "block";
+                    document.getElementById("exit").style.display = "block";
+                    message("Success!");
+                }
+            }
+            function game_func(){
+                if(time == 100){ finish();}
+                if(time < 100){ make_obstacle();} time++;
+            }
+            var game = setInterval(function(){ game_func();}, 250);
+        </script>
+    </body>
+</html>

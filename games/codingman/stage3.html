@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stage 3. sound</title>
+        <meta charset="utf-8">
+        <div id="title">Stage 3. Sound</div>
+        <div id="char_life">You</div>
+        <div id="bug_life">Bug</div>
+
+        <p><button class="motion" id="random" onclick="motion('random', 'char'); const now = this; now.style.visibility = 'hidden'; setTimeout(function(){now.style.visibility = 'visible';}, 3000);">move to random position</button>
+        <button class="motion" id="point" onclick="motion('point', 'char'); const now = this; now.style.visibility = 'hidden'; setTimeout(function(){now.style.visibility = 'visible';}, 3000);">point towards character</button>
+        <button class="motion" id="move1" onclick="motion('move1', 'char');">move 10 steps</button>
+        <button class="motion" id="move2" onclick="motion('move2', 'char');">move -10 steps</button>
+        <button class="motion" id="bounce" onclick="motion('bounce', 'char');">if on edge, bounce</button>
+        <button class="motion" id="clock" onclick="motion('clock', 'char');">turn ⟳ 45 degrees</button>
+        <button class="motion" id="counter_clock" onclick="motion('counter_clock', 'char');">turn ⟲ 45 degrees</button></p>
+
+        <p><button class="looks" id="size" onclick="looks('size', 'char'); const now = this; now.style.visibility = 'hidden'; setTimeout(function(){now.style.visibility = 'visible';}, 3000);">set size to 50%</button>
+        <button class="looks" id="hide" onclick="looks('hide', 'char'); const now = this; now.style.visibility = 'hidden'; setTimeout(function(){now.style.visibility = 'visible';}, 3000);">hide</button></p>
+
+        <div id="char">^</div>
+        <div id="bug">^</div>
+        <div id="bug_code">Bug Code</div>
+        <form action="stage4.html" method="POST">
+            <input type="hidden" id="id" name="id" value="1">
+            <button type="submit" id="nextlevel">next stage</button>
+        </form>
+        <button id="restart" onclick="restart()">restart</button>
+        <button id="exit" onclick="window.open('mainpage.html', '_self')">exit</button>
+    </head>
+    <body>
+        <style>
+        *{
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        body{
+            background-color: rgb(255, 208, 127);
+        }
+        #char{
+            width: 10%;
+            height: 10%;
+            border-radius: 50%;
+            border: 2px solid black;
+            background-color: rgb(122, 122, 122);
+            color: white;
+            font-size: 5rem;
+            text-align: center;
+            position: absolute;
+            left: 20%;
+            top: 45%;
+        }
+        #bug{
+            width: 10%;
+            height: 10%;
+            border-radius: 50%;
+            border: 2px solid black;
+            background-color: rgb(210, 0, 255);
+            color: white;
+            font-size: 5rem;
+            text-align: center;
+            position: absolute;
+            left: 70%;
+            top: 45%;
+        }
+        #char_life{
+            width: 20%;
+            height: 2%;
+            background-color: rgb(0, 255, 0);
+            color: black;
+            text-align: left;
+            position: absolute;
+            left: 10%;
+            top: 5%;
+        }
+        #bug_life{
+            width: 20%;
+            height: 2%;
+            background-color: rgb(255, 0, 0);
+            color: white;
+            text-align: right;
+            position: absolute;
+            right: 10%;
+            top: 5%;
+        }
+        #title{
+            text-align: center;
+            font-size: 3rem;
+            color: magenta;
+        }
+        .motion{
+            background-color: rgb(0, 110, 255);
+            border-radius: 5px;
+            padding: 5px;
+            border: none;
+            margin: 3px;
+            color: white;
+            display: block;
+        }
+        .looks{
+            background-color: rgb(140, 0, 255);
+            border-radius: 5px;
+            padding: 5px;
+            border: none;
+            margin: 3px;
+            color: white;
+            display: block;
+        }
+        #bug_code{
+            text-align: right;
+            font-size: 2rem;
+        }
+        #restart{
+            font-size: 30px;
+            color: white;
+            background-color: rgb(125, 0, 125);
+            border: none;
+            text-decoration: none;
+            display: none;
+            position: absolute;
+            left: 83%;
+            top: 95%;
+        }
+        #nextlevel{
+            font-size: 30px;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 122, 0);
+            border: none;
+            text-decoration: none;
+            display: none;
+            position: absolute;
+            left: 77%;
+            top: 95%;
+        }
+        #exit{
+            font-size: 30px;
+            color: rgb(0, 0, 0);
+            background-color: rgb(0, 255, 0);
+            border: none;
+            text-decoration: none;
+            display: none;
+            position: absolute;
+            left: 94%;
+            top: 95%;
+        }
+        </style>
+        <script>
+        var x = {char: -25, bug: 25}, y = {char: 0, bug: 0}, dir = {char: 90, bug: -90}, life = {char: 10, bug: 10}, isgame = 1, count = 0;
+        window.addEventListener("keydown", function(){move(event); attack_func();});
+        document.getElementById("char").style.display = "block";
+        document.getElementById("bug").style.display = "block";
+         
+        function convert(x){
+            return Number(x.slice(0, x.length - 1));
+        }
+
+        function bug_code(str, type){
+            var message = document.createElement("DIV");
+            document.body.appendChild(message);
+            message.style.textAlign = "right";
+            message.innerHTML = str;
+            if(type == "motion"){
+                message.style.color = "rgb(0, 110, 255)";
+            } else if(type == "looks"){
+                message.style.color = "rgb(140, 0, 255)";
+            } else if(type == "sound"){
+                message.style.color = "rgb(190, 0, 255)";
+            }
+            setTimeout(function(){message.remove();}, 1500);
+        }
+
+        function move(event){
+            if(event.keyCode == 37){
+                dir['char'] -= 10;
+            } else if(event.keyCode == 38){
+                x['char'] += Math.sin(dir['char']/180*Math.PI);
+                y['char'] += Math.cos(dir['char']/180*Math.PI);
+            } else if(event.keyCode == 39){
+                dir['char'] += 10;
+            } else if(event.keyCode == 40){
+                x['char'] -= Math.sin(dir['char']/180*Math.PI);
+                y['char'] -= Math.cos(dir['char']/180*Math.PI);
+            };
+            remove();
+        };
+
+        function attack_func(){
+            if(event.keyCode == 32){
+                var attack = document.createElement("DIV");
+                document.body.appendChild(attack);
+                attack.style.width = 2 + "%";
+                attack.style.height = 2 + "%";
+                attack.style.backgroundColor = "rgb(0, 255, 0)";
+                attack.style.borderRadius = 50 + "%";
+                attack.style.position = "absolute";
+                attack.style.left = x['char'] + 49 + "%";
+                attack.style.top = 49 - y['char'] + "%";
+                const attack_x = Math.sin(dir['char']/180*Math.PI);
+                const attack_y = Math.cos(dir['char']/180*Math.PI);
+                var attack_move = setInterval(function(){
+                    attack.style.left = convert(attack.style.left) + attack_x + "%";
+                    attack.style.top = convert(attack.style.top) - attack_y + "%";
+                    if(Math.sqrt(Math.pow(convert(attack.style.left) + 1 - (x['bug'] + 50), 2) + Math.pow(convert(attack.style.top) + 1 - (50 - y['bug']), 2)) <= 6 && document.getElementById("bug").style.display == "block" && isgame == 1){
+                        life['bug']--;
+                        document.getElementById("bug_life").style.width = 20*life['bug']/10 + "%";
+                        motion("random", "bug");
+                        motion("point", "bug");
+                        looks("hide", "bug");
+                        attack.remove();
+                        gameover();
+                        clearInterval(attack_move);
+                    }
+                    if(convert(attack.style.left) <= -2 || convert(attack.style.left) >= 100 || convert(attack.style.top) <= -2 || convert(attack.style.top) >= 100){
+                        attack.remove();
+                        clearInterval(attack_move);
+                    }
+                }, 25);
+            }
+        }
+
+        function motion(input, div){
+            if(input == "random"){
+                x[div] = 50*(2*Math.random() - 1);
+                y[div] = 50*(2*Math.random() - 1);
+                if(div == "bug") bug_code("move to random position", "motion");
+            } else if(input == "point"){
+                if(div == "char"){
+                    dir["char"] = (Math.atan((x['char'] - x['bug'])/(y['char'] - y['bug']))/Math.PI + (Math.abs(y['bug'] - y['char'])/(y['char'] - y['bug']) + 1)/2)*180;
+                } else if(div == "bug"){
+                    dir["bug"] = (Math.atan((x['char'] - x['bug'])/(y['char'] - y['bug']))/Math.PI + (Math.abs(y['bug'] - y['char'])/(y['bug'] - y['char']) + 1)/2)*180;
+                }
+                if(div == "bug") bug_code("point towards character", "motion");
+            } else if(input == "move1"){
+                x[div] += 10*Math.sin(dir[div]/180*Math.PI);
+                y[div] += 10*Math.cos(dir[div]/180*Math.PI);
+                if(div == "bug") bug_code("move 10 steps", "motion");
+            } else if(input == "move2"){
+                x[div] -= 10*Math.sin(dir[div]/180*Math.PI);
+                y[div] -= 10*Math.cos(dir[div]/180*Math.PI);
+                if(div == "bug") bug_code("move -10 steps", "motion");//
+            } else if(input == "bounce"){
+                if(x[div] < -45){
+                    x[div] = -45;
+                }
+                if(x[div] > 45){
+                    x[div] = 45;
+                }
+                if(y[div] < -45){
+                    y[div] = -45;
+                }
+                if(y[div] > 45){
+                    y[div] = 45;
+                }
+                if(div == "bug") bug_code("if on edge, bounce", "motion");
+            } else if(input == "clock"){
+                dir[div] += 45;
+                if(div == "bug") bug_code("turn ⟳ 90 degrees", "motion");
+            } else if(input == "counter_clock"){
+                dir[div] -= 45;
+                if(div == "bug") bug_code("turn ⟲ 90 degrees", "motion");
+            }
+            remove();
+        }
+
+        function looks(input, div){
+            if(input == "size"){
+                document.getElementById(div).style.width = 5 + "%";
+                document.getElementById(div).style.height = 5 + "%";
+                document.getElementById(div).style.fontSize = 2.5 + "rem";
+                bug_code("set size to 50%", "looks");
+                setTimeout(function(){
+                    document.getElementById(div).style.width = 10 + "%";
+                    document.getElementById(div).style.height = 10 + "%";
+                    document.getElementById(div).style.fontSize = 5 + "rem";
+                    bug_code("set size to 100%", "looks");
+                }, 1000);
+            } else if(input == "hide"){
+                document.getElementById(div).style.display = "none";
+                bug_code("hide", "looks");
+                setTimeout(function(){
+                    document.getElementById(div).style.display = "block";
+                    bug_code("show", "looks");
+                }, 1000);
+            }
+        }
+
+        function sound(input, div){
+            if(input == "sound"){
+                var bug_sound = document.createElement("DIV");
+                document.body.appendChild(bug_sound);
+                bug_sound.style.width = 2 + "%";
+                bug_sound.style.height = 2 + "%";
+                bug_sound.style.border = "2px solid gray";
+                bug_sound.style.borderRadius = "50%";
+                bug_sound.style.position = "absolute";
+                bug_sound.style.left = x[div] + 49 + "%";
+                bug_sound.style.top = 49 - y[div] + "%";
+                bug_code("start sound", "sound");
+                var bug_sound_move = setInterval(function(){
+                    bug_sound.style.width = convert(bug_sound.style.width) + 2 + "%";
+                    bug_sound.style.height = convert(bug_sound.style.height) + 2 + "%";
+                    bug_sound.style.left = convert(bug_sound.style.left) - 1 + "%";
+                    bug_sound.style.top = convert(bug_sound.style.top) - 1 + "%";
+                    if(Math.sqrt(Math.pow(convert(bug_sound.style.left) + convert(bug_sound.style.width)/2 - (x['char'] + 50), 2) + Math.pow(convert(bug_sound.style.top) + convert(bug_sound.style.height)/2 - (50 - y['char']), 2)) <= convert(bug_sound.style.width)/2 + 5 && document.getElementById("char").style.display == "block" && isgame == 1){
+                        life['char']--;
+                        document.getElementById("char_life").style.width = 20*life['char']/10 + "%";
+                        if(Math.random() < 0.5){
+                            motion("clock", "bug");
+                        } else {
+                            motion("counter_clock", "bug");
+                        }
+                        motion("move2", "bug");
+                        motion("bounce", "bug");
+                        looks("size", "bug");
+                        bug_sound.remove();
+                        gameover();
+                        clearInterval(bug_sound_move);
+                    }
+                }, 25);
+            }
+        }
+
+        function bug_attack_func(){
+            if(1){
+                var bug_attack = document.createElement("DIV");
+                document.body.appendChild(bug_attack);
+                bug_attack.style.width = 2 + "%";
+                bug_attack.style.height = 2 + "%";
+                bug_attack.style.backgroundColor = "rgb(255, 0, 0)";
+                bug_attack.style.borderRadius = "50%";
+                bug_attack.style.position = "absolute";
+                bug_attack.style.left = x['bug'] + 49 + "%";
+                bug_attack.style.top = 49 - y['bug'] + "%";
+                const bug_attack_x = (x['char'] - x['bug'])/Math.sqrt(Math.pow(x['char'] - x['bug'], 2) + Math.pow(y['char'] - y['bug'], 2));
+                const bug_attack_y = (y['char'] - y['bug'])/Math.sqrt(Math.pow(x['char'] - x['bug'], 2) + Math.pow(y['char'] - y['bug'], 2));
+                var bug_attack_move = setInterval(function(){
+                    bug_attack.style.left = convert(bug_attack.style.left) + bug_attack_x + "%";
+                    bug_attack.style.top = convert(bug_attack.style.top) - bug_attack_y + "%";
+                    if(Math.sqrt(Math.pow(convert(bug_attack.style.left) + 1 - (x['char'] + 50), 2) + Math.pow(convert(bug_attack.style.top) + 1 - (50 - y['char']), 2)) <= 6 && document.getElementById("char").style.display == "block" && isgame == 1){
+                        life['char']--;
+                        document.getElementById("char_life").style.width = 20*life['char']/10 + "%";
+                        bug_attack.remove();
+                        gameover();
+                        clearInterval(bug_attack_move);
+                    }
+                    if(convert(bug_attack.style.left) <= -2 || convert(bug_attack.style.left) >= 100 || convert(bug_attack.style.top) <= -2 || convert(bug_attack.style.top) >= 100){
+                        bug_attack.remove();
+                        clearInterval(bug_attack_move);
+                    }
+                }, 25);
+            }
+        }
+            
+        function remove(){
+            document.getElementById("char").style.left = x['char'] + 45 + "%";
+            document.getElementById("char").style.top = 45 - y['char'] + "%";
+            document.getElementById("char").style.transform = "rotate(" + dir['char'] + "deg)";
+            document.getElementById("bug").style.left = x['bug'] + 45 + "%";
+            document.getElementById("bug").style.top = 45 - y['bug'] + "%";
+            document.getElementById("bug").style.transform = "rotate(" + dir['bug'] + "deg)";
+        }
+
+        function gameover(){
+            if(life['char'] == 0){
+                alert("YOU LOSE");
+                clearInterval(game);
+                isgame = 0;
+                document.getElementById("restart").style.display = "inline";
+                document.getElementById("exit").style.display = "inline";
+            } else if(life['bug'] == 0){
+                alert("YOU WIN");
+                clearInterval(game);
+                isgame = 0;
+                document.getElementById("nextlevel").style.display = "inline";
+                document.getElementById("exit").style.display = "inline";
+            }
+        }
+
+        function bug(){
+            motion("random", "bug");
+            motion("point", "bug");
+            motion("move1", "bug");
+            motion("bounce", "bug");
+            bug_attack_func();
+            motion("move2", "bug");
+            motion("bounce", "bug");
+            looks("hide", "bug");
+            if(count%5 == 0) sound("sound", "bug");
+            count++;
+        }
+
+        function restart(){
+            x['char'] = -25, y['char'] = 0, dir['char'] = 90, life['char'] = 10, x['bug'] = 25, y['bug'] = 0, dir['bug'] = -90, life['bug'] = 10, isgame = 1;
+            document.getElementById("restart").style.display = "none";
+            document.getElementById("exit").style.display = "none";
+            remove();
+            var game = setInterval(function(){ bug();}, 3000);
+        }
+
+        remove();
+        var game = setInterval(function(){ bug();}, 3000);
+        </script>
+    </body>
+</html>

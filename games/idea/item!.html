@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Idea</title>
+        <div id="char"></div>
+        <div id="shield"></div>
+        <div id="message">Item Lab</div>
+        <a href="item!.html" id="restart">Try again</div>
+        <a href="item!1.html" id="nextstage">Next stage</div>
+        <a href="mainpage.html" id="exit">Exit</div>
+    </head>
+    <body>
+        <style>
+            *{
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            body{
+                background-color: powderblue;
+            }
+            #char{
+                width: 80px;
+                height: 80px;
+                border: 5px solid deepskyblue;
+                background-color: lightskyblue;
+                position: absolute;
+                left: 300px;
+                top: 444px;
+            }
+            #shield{
+                width: 5px;
+                height: 80px;
+                background-color: blue;
+                visibility: hidden;
+                position: absolute;
+                left: 475px;
+                top: 444px;
+            }
+            #message{
+                color: white;
+                font-size: 5rem;
+                text-align: center;
+                user-select: none;
+            }
+            a{
+                font-size: 30px;
+                border: none;
+                text-decoration: none;
+                display: none;
+                position: absolute;
+                top: 95%;
+            }
+            #restart{
+                color: white;
+                background-color: rgb(125, 0, 125);
+                left: 90%;
+            }
+            #nextstage{
+                color: rgb(0, 0, 0);
+                background-color: rgb(255, 122, 0);
+                left: 88%;
+            }
+            #exit{
+                color: rgb(0, 0, 0);
+                background-color: rgb(0, 255, 0);
+                left: 97%;
+            }
+        </style>
+        <script>
+            var x = 300, y = 444, time = 0, life = 3, check = [0, 0, 80, 0, 0, 0];
+            window.addEventListener("keydown", function(){move(event); item(event);});
+            function convert(x){ return Number(x.slice(0, x.length - 2));}
+            function message(str){ document.getElementById("message").innerHTML = str;}
+            function move(){
+                if(event.key == "ArrowLeft"){x -= 300;}
+                else if(event.key == "ArrowRight"){x += 300;}
+                if(x < 0){x = 0;} else if(x > 1860){x = 1860;}
+                if(event.key == "ArrowUp"){y -= 40;}
+                else if(event.key == "ArrowDown"){y += 40;}
+                else if(event.key == "R" || event.key == "r"){y += 400*(2*Math.random() - 1);}
+                if(y < 0){y = 0;} else if(y > 888){y = 888;}
+                document.getElementById("char").style.left = x + "px";
+                document.getElementById("shield").style.left = x + 175 + "px";
+                document.getElementById("char").style.top = y + "px";
+                document.getElementById("shield").style.top = y + "px";
+            }
+            function item(event){
+                if(event.key == "H" || event.key == "h"){
+                    document.getElementById("char").style.visibility = "hidden"; check[0] = 1;
+                    setTimeout(function(){document.getElementById("char").style.visibility = "visible"; check[0] = 0;}, 1500);
+                } else if(event.key == "S" || event.key == "s"){
+                    document.getElementById("shield").style.visibility = "visible"; check[1] = 1;
+                    setTimeout(function(){document.getElementById("shield").style.visibility = "hidden"; check[1] = 0;}, 1500);
+                } else if(event.key == "D" || event.key == "d"){
+                    document.getElementById("char").style.width = "60px";
+                    document.getElementById("char").style.height = "60px"; check[2] = 60;
+                    y += 10; document.getElementById("char").style.top = y + "px";
+                    setTimeout(function(){
+                        document.getElementById("char").style.width = "80px";
+                        document.getElementById("char").style.height = "80px"; check[2] = 80;
+                        y -= 10; document.getElementById("char").style.top = y + "px";
+                    }, 1500);
+                } else if(event.key == "G" || event.key == "g"){
+                    check[4] = 1; setTimeout(function(){check[4] = 0;}, 1500);
+                } else if(event.key == "F" || event.key == "f"){
+                    check[5] = 1; setTimeout(function(){check[5] = 0;}, 50);
+                }
+            }
+            function make_obstacle(){
+                var obs_check = [1];
+                var obs = document.createElement("DIV");
+                document.body.appendChild(obs);
+                obs.style.width = 80 + "px";
+                obs.style.height = 80 + "px";
+                obs.style.backgroundColor = "deepskyblue";
+                obs.style.border = "5px solid dodgerblue";
+                obs.style.position = "absolute";
+                obs.style.left = "2000px";
+                obs.style.top = 888*Math.random() + "px";
+                var obs_move = setInterval(function(){
+                    obs.style.left = convert(obs.style.left) - 10/(check[4] + 1) + "px";
+                    if(Math.abs(convert(obs.style.left) + (80 - check[2])/2 - x) <= (80 + check[2])/2 && Math.abs(convert(obs.style.top) + (80 - check[2])/2 - y) <= (80 + check[2])/2 && life && !check[0] && obs_check[0]){
+                        life--; gameover("lose"); clearInterval(obs_move);
+                    }
+                    if(check[5]){
+                        var time = 1;
+                        var fall_move = setInterval(function(){
+                            obs.style.top = convert(obs.style.top) + time + "px"; time++;
+                            if(convert(obs.style.top) > 888){obs.style.top = "888px"; clearInterval(fall_move);}
+                        }, 25);
+                    }
+                    if(convert(obs.style.left) == 480 && Math.abs(convert(obs.style.top) - y) <= 80 && check[1]){ obs.style.visibility = "hidden"; obs_check[0] = 0;}
+                    if(convert(obs.style.left) == 200){ obs.style.visibility = "visible"; obs_check[0] = 1;}
+                    if(convert(obs.style.left) <= -80){
+                        obs.remove(); clearInterval(obs_move);
+                    }
+                }, 25);
+            }
+            function finish(){
+                var obs = document.createElement("DIV");
+                document.body.appendChild(obs);
+                obs.style.width = 5 + "px";
+                obs.style.height = 100 + "%";
+                obs.style.backgroundColor = "dodgerblue";
+                obs.style.position = "absolute";
+                obs.style.left = "2000px";
+                obs.style.top = "0px";
+                var obs_move = setInterval(function(){
+                    obs.style.left = convert(obs.style.left) - 10/(check[4] + 1) + "px";
+                    if(convert(obs.style.left) <= 380 && life){
+                        clearInterval(game);
+                        gameover("win"); clearInterval(obs_move);
+                    }
+                }, 25);
+            }
+            function gameover(res){
+                if(res == "lose"){
+                    clearInterval(game);
+                    document.getElementById("restart").style.display = "block";
+                    document.getElementById("exit").style.display = "block";
+                    message("Fail");
+                    setTimeout(function(){message(time - 17 + "%");}, 1000);
+                } else if(res == "win"){
+                    document.getElementById("nextstage").style.display = "block";
+                    document.getElementById("exit").style.display = "block";
+                    message("Success!");
+                }
+            }
+            function game_func(){
+                if(time == 100){ finish();}
+                if(time < 100){ make_obstacle();}
+            }
+            var game = setInterval(function(){if(!check[4] || time%2 == 0){game_func();} time++;}, 250);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stage 5. control (Block Assembler)</title>
+        <meta charset="utf-8">
+        <div id="bgd" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        <p><button class="motion" id="random" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">move to random position</button>
+        <button class="motion" id="point" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">point towards character</button>
+        <button class="motion" id="move" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">move <input type="number" class="number" id="move_" name="move_" onfocus="focused = 1;" onblur="focused = 0;"> steps</button>
+        <button class="motion" id="bounce" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">if on edge, bounce</button>
+        <button class="motion" id="turn" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">turn ⟳ <input type="number" class="number" id="turn_" name="turn_" onfocus="focused = 2;" onblur="focused = 0;"> degrees</button></p>
+
+        <p><button class="looks" id="size" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">set size to <input type="number" class="number" id="size_" name="size_" onfocus="focused = 3;" onblur="focused = 0;">%</button>
+        <button class="looks" id="hide" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">hide</button></p>
+
+        <p><button class="sound" id="sound" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">start sound</button>
+        <button class="sound" id="mute" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">stop all sounds</button></p>
+
+        <p><button class="event" id="start" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">when started</button>
+        <button class="event" id="bug" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">when bug executed <input type="text" class="input" id="bug_" name="bug_" onfocus="focused = 4;" onblur="focused = 0;"></button>
+        <button class="event" id="attacked" draggable="true" ondragstart="drag(event)" onclick="if(!focused) clicked(this.id);">when <input type="text" class="input" id="attack_" name="attack_" onfocus="focused = 5;" onblur="focused = 0;"> got attacked</button></p>
+
+        <p><button class="myblocks" id="attack" draggable="true" ondragstart="drag(event)" onclick="clicked(this.id);">attack</button></p>
+
+        <form action="stage5.php" method="POST">
+            <input type="text" id="code" name="code">
+            <input type="hidden" id="id" name="id" value="1">
+            <button type="submit" id="submit">submit</button>
+        </form>
+        <a href="games.html" id="exit">exit</a>
+    </head>
+    <body>
+        <style>
+        *{
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .motion{
+            height: 25px;
+            background-color: rgb(0, 110, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 5px;
+        }
+        .looks{
+            height: 25px;
+            background-color: rgb(140, 0, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 5px;
+        }
+        .sound{
+            height: 25px;
+            background-color: rgb(210, 0, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 5px;
+        }
+        .event{
+            height: 25px;
+            background-color: rgb(255, 200, 0);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 5px;
+        }
+        .myblocks{
+            height: 25px;
+            background-color: rgb(255, 60, 100);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 5px;
+        }
+        .number{
+            width: 30px;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+        .input{
+            width: 100px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: rgb(255, 200, 0);
+        }
+        #bgd {
+            width: 80%;
+            height: 100%;
+            border: 1px solid #aaaaaa;
+            position: absolute;
+            left: 20%;
+        }
+        #submit{
+            font-size: 30px;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 122, 0);
+            border: none;
+            text-decoration: none;
+            position: absolute;
+            left: 77%;
+            top: 95%;
+        }
+        #exit{
+            font-size: 30px;
+            color: rgb(0, 0, 0);
+            background-color: rgb(0, 255, 0);
+            border: none;
+            text-decoration: none;
+            position: absolute;
+            left: 94%;
+            top: 95%;
+        }
+        </style>
+        <script>
+            var x1, x2, y1, y2, x = 30, y = 10, click = 0, focused = 0;
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("Text", ev.target.id);
+            }
+
+            function drop(ev) {
+                var data = ev.dataTransfer.getData("Text");
+                ev.target.appendChild(document.getElementById(data));
+                ev.preventDefault();
+            }
+         
+            function convert(x){
+                return Number(x.slice(0, x.length - 1));
+            }
+
+            function clicked(block){
+                var clone = document.getElementById(block).cloneNode(true);
+                document.body.appendChild(clone);
+                clone.style.position = "absolute";
+                clone.style.draggable = "true";
+            }
+        </script>
+    </body>
+</html>

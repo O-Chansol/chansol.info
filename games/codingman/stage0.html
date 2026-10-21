@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Shooting Game</title>
+        <div id="char">^</div>
+        <div id="bug">^</div>
+        <div id="char_life">You</div>
+        <div id="bug_life">Bug</div>
+        <div id="title">Stage 0. shooting game</div>
+
+        <form action="stage1.html" method="POST">
+            <input type="hidden" id="id" name="id" value="1">
+            <button type="submit" id="nextlevel">next stage</button>
+        </form>
+        <button id="restart" onclick="restart()">restart</button>
+        <button id="exit" onclick="window.open('mainpage.html', '_self')">exit</button>
+    </head>
+    <body>
+        <style>
+            *{
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            body{
+                background-color: rgb(255, 208, 127);
+            }
+            #char{
+                width: 10%;
+                height: 10%;
+                font-size: 5rem;
+                text-align: center;
+                border-radius: 50%;
+                border: 2px solid black;
+                color: rgb(255, 255, 255);
+                background-color: rgb(0, 110, 255);
+                position: absolute;
+                left: 45%;
+                top: 75%;
+            }
+            #bug{
+                width: 10%;
+                height: 10%;
+                font-size: 5rem;
+                text-align: center;
+                border-radius: 50%;
+                border: 2px solid black;
+                color: rgb(255, 255, 255);
+                background-color: rgb(127, 127, 127);
+                transform: rotate(180deg);
+                position: absolute;
+                left: 45%;
+                top: 15%;
+            }
+            #char_life{
+                width: 20%;
+                height: 2%;
+                background-color: rgb(0, 255, 0);
+                color: black;
+                text-align: left;
+                position: absolute;
+                left: 10%;
+                top: 5%;
+            }
+            #bug_life{
+                width: 20%;
+                height: 2%;
+                background-color: rgb(255, 0, 0);
+                color: white;
+                text-align: right;
+                position: absolute;
+                right: 10%;
+                top: 5%;
+            }
+            #title{
+                color: rgb(0, 110, 255);
+                font-size: 2rem;
+                text-align: center;
+            }
+            #restart{
+                font-size: 30px;
+                color: white;
+                background-color: rgb(125, 0, 125);
+                border: none;
+                text-decoration: none;
+                display: none;
+                position: absolute;
+                left: 83%;
+                top: 95%;
+            }
+            #nextlevel{
+                font-size: 30px;
+                color: rgb(0, 0, 0);
+                background-color: rgb(255, 122, 0);
+                border: none;
+                text-decoration: none;
+                display: none;
+                position: absolute;
+                left: 77%;
+                top: 95%;
+            }
+            #exit{
+                font-size: 30px;
+                color: rgb(0, 0, 0);
+                background-color: rgb(0, 255, 0);
+                border: none;
+                text-decoration: none;
+                display: none;
+                position: absolute;
+                left: 94%;
+                top: 95%;
+            }
+        </style>
+        <script>
+            var char = document.getElementById("char"), bug = document.getElementById("bug");
+            window.addEventListener("keydown", function(){move(event); attack();});
+            function convert(x){return Number(x.slice(0, x.length - 1));}
+            var char_x = 45, char_y = 75, char_life = 10, char_size = 5;
+            var bug_x = 45, bug_y = 15, bug_life = 10, bug_size = 5;
+
+            function attack(){
+                if(event.keyCode == 32){
+                    var shoot = document.createElement("DIV");
+                    document.body.appendChild(shoot);
+                    shoot.style.width = 2 + "%";
+                    shoot.style.height = 2 + "%";
+                    shoot.style.backgroundColor = "rgb(0, 255, 0)";
+                    shoot.style.borderRadius = 50 + "%";
+                    shoot.style.position = "absolute";
+                    shoot.style.left = char_x + char_size - 1 + "%";
+                    shoot.style.top = char_y + char_size - 1 + "%";
+                    var attack_move = setInterval(function(){
+                        shoot.style.top = convert(shoot.style.top) - 1 + "%";
+                        if(Math.sqrt(Math.pow(convert(shoot.style.left) + 1 - (bug_x + bug_size), 2) + Math.pow(convert(shoot.style.top) + 1 - (bug_y + bug_size), 2)) <= 1 + bug_size && isgame == 1){
+                            bug_life--;
+                            document.getElementById("bug_life").style.width = 20*bug_life/10 + "%";
+                            shoot.remove();
+                            gameover();
+                            bug_move();
+                            clearInterval(attack_move);
+                        }
+                        if(convert(shoot.style.left) <= -2 || convert(shoot.style.left) >= 100 || convert(shoot.style.top) <= -2 || convert(shoot.style.top) >= 100){
+                            shoot.remove();
+                            clearInterval(attack_move);
+                        }
+                    }, 20);
+                }
+            }
+            function move(event){
+                if(event.keyCode == 37){
+                    char_x -= 1;
+                } else if(event.keyCode == 38){
+                    char_y -= 1;
+                } else if(event.keyCode == 39){
+                    char_x += 1;
+                } else if(event.keyCode == 40){
+                    char_y += 1;
+                };
+                remove();
+            }
+
+            function bug_attack(){
+                if(true){ 
+                    var shoot = document.createElement("DIV");
+                    document.body.appendChild(shoot);
+                    shoot.style.width = 2 + "%";
+                    shoot.style.height = 2 + "%";
+                    shoot.style.backgroundColor = "rgb(255, 0, 0)";
+                    shoot.style.borderRadius = 50 + "%";
+                    shoot.style.position = "absolute";
+                    shoot.style.left = bug_x + bug_size - 1 + "%";
+                    shoot.style.top = bug_y + bug_size - 1 + "%";
+                    var bug_attack_move = setInterval(function(){
+                        shoot.style.top = convert(shoot.style.top) + 1 + "%";
+                        if(Math.sqrt(Math.pow(convert(shoot.style.left) + 1 - (char_x + char_size), 2) + Math.pow(convert(shoot.style.top) + 1 - (char_y + char_size), 2)) <= 1 + char_size && isgame == 1){
+                            char_life--;
+                            document.getElementById("char_life").style.width = 20*char_life/10 + "%";
+                            shoot.remove();
+                            gameover();
+                            clearInterval(bug_attack_move);
+                        }
+                        if(convert(shoot.style.left) <= -2 || convert(shoot.style.left) >= 100 || convert(shoot.style.top) <= -2 || convert(shoot.style.top) >= 100){
+                            shoot.remove();
+                            clearInterval(bug_attack_move);
+                        }
+                    }, 20);
+                }
+            }
+            function bug_move(){
+                bug_x = (100 - bug_size*2)*Math.random();
+                remove();
+            }
+
+            function remove(){
+                document.getElementById("char").style.left = char_x + "%";
+                document.getElementById("char").style.top = char_y + "%";
+                document.getElementById("bug").style.left = bug_x + "%";
+                document.getElementById("bug").style.top = bug_y + "%";
+            }
+            function gameover(){
+                if(char_life == 0){
+                    alert("YOU LOSE");
+                    clearInterval(game);
+                    isgame = 0;
+                    document.getElementById("restart").style.display = "inline";
+                    document.getElementById("exit").style.display = "inline";
+                } else if(bug_life == 0){
+                    alert("YOU WIN");
+                    clearInterval(game);
+                    isgame = 0;
+                    document.getElementById("nextlevel").style.display = "inline";
+                    document.getElementById("exit").style.display = "inline";
+                }
+            }
+            function bug_func(){
+                bug_move();
+                bug_attack();
+            }
+
+            function restart(){
+                char_x = 45, char_y = 75, char_life = 10, char_size = 5;
+                bug_x = 45, bug_y = 15, bug_life = 10, bug_size = 5;
+                document.getElementById("restart").style.display = "none";
+                document.getElementById("exit").style.display = "none";
+                remove();
+                isgame = 1;
+                var game = setInterval(function(){ bug_func();}, 3000);
+            }
+
+            var isgame = 1;
+            var game = setInterval(function(){ bug_func();}, 1200);
+        </script>
+    </body>
+</html>
