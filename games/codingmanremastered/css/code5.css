@@ -1,0 +1,46 @@
+.assembler-layout { display: grid; grid-template-columns: 276px minmax(0, 1fr); gap: 24px; max-width: 1280px; padding: 24px; margin: 0 auto; align-items: start; }
+.assembler-layout .code-palette { grid-area: auto; }
+.workspace-column { min-width: 0; }
+.workspace-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.workspace-heading h2 { margin: 0; font-size: 16px; }
+#block-count { font-size: 12px; color: #9199aa; }
+.block-workspace { min-height: max(260px, calc(100svh - 300px)); padding: 24px; overflow: auto; border: 1px solid #d9dfe9; border-radius: 12px; background: #fafbfe; background-image: radial-gradient(#b9c2d5 1px, transparent 1px); background-size: 20px 20px; }
+.block-workspace.is-dragging { border-color: #4c97ff; background-color: #f0f6ff; }
+.workspace-placeholder { margin: 60px 0; color: #a0a9bb; text-align: center; font-size: 16px; line-height: 1.8; pointer-events: none; }
+.workspace-placeholder span { font-size: 12px; }
+.block-workspace:has(.assembled-row) .workspace-placeholder { display: none; }
+.assembled-row { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: 100%; }
+.assembled-row .scratch-block { flex-shrink: 1; margin-bottom: -2px; cursor: grab; }
+.assembled-row:focus-within { filter: drop-shadow(0 0 2px #6aa9ff); }
+.remove-block { flex-shrink: 0; width: 25px; height: 25px; border: 1px solid #dce0e9; border-radius: 6px; color: #7c879a; background: white; cursor: pointer; }
+.remove-block:hover { color: #cc3344; border-color: #cc3344; }
+.workspace-column > .shortcut-note { margin: 14px 0; }
+.assembler-note { color: #8a94a7; font-size: 12px; line-height: 1.7; }
+.assembler-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.editor-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 12px; }
+.editor-toolbar button, #editor-stage { padding: 7px 9px; border: 1px solid #cdd5e4; border-radius: 6px; background: white; color: #405576; font: inherit; font-size: 12px; }
+#insertion-label { width: 100%; font-size: 12px; color: #47678f; margin-bottom: 4px; }
+.program-node { min-width: 0; margin-bottom: 8px; }
+.program-node .assembled-row { width: 100%; gap: 6px; align-items: flex-start; }
+.program-node .assembled-block { width: 100%; min-width: 84px; }
+.program-node .block-label { display: block; width: 100%; }
+.program-block-title { display: block; font-weight: 600; margin-bottom: 4px; }
+.program-field, .expression-editor, .predicate-editor, .condition-editor { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; max-width: 100%; }
+.program-field { margin-top: 6px; }
+.field-label { font-size: 11px; }
+.program-select, .scratch-block .program-input { min-width: 0; max-width: 100%; border: 1px solid #00000025; border-radius: 12px; padding: 3px 6px; color: #46516a; background: white; font: 12px Arial, "Malgun Gothic", sans-serif; }
+.scratch-block .program-input { width: 70px; margin: 0; }
+.scratch-block .program-input[type="text"] { width: 90px; }
+.node-tools { display: flex; flex-direction: column; flex-shrink: 0; gap: 3px; }
+.node-tool { width: 24px; height: 24px; padding: 0; border: 1px solid #d7dfea; border-radius: 4px; background: white; color: #567094; cursor: pointer; }
+.has-body > .program-sequence { margin-right: 30px; padding: 8px 0 8px 12px; border-left: 12px solid #ffab19; border-bottom: 10px solid #ffab19; border-radius: 0 0 6px 6px; }
+.program-sequence { min-height: 24px; min-width: 0; }
+.program-sequence.selected-sequence { outline: 2px dashed #4c97ff; outline-offset: 3px; }
+.insert-here { display: block; max-width: 100%; margin: 8px 3px; padding: 7px; border: 1px dashed #9db1cc; border-radius: 5px; background: #f6f9fd; color: #597497; font-size: 11px; cursor: pointer; }
+.else-label { margin-right: 30px; padding: 8px 12px; color: white; background: #ffab19; font-size: 12px; }
+.editor-status, .editor-help { color: #536a8a; font-size: 12px; line-height: 1.7; }
+.editor-status.is-error { color: #b33346; }
+.editor-help summary { cursor: pointer; }
+@media (min-width: 700px) { .assembler-layout .code-palette { position: sticky; top: 12px; max-height: calc(100svh - 24px); overflow: auto; } }
+@media (max-width: 699px) { .program-node .scratch-block { font-size: 11px; padding-left: 8px; padding-right: 8px; } .has-body > .program-sequence { border-left-width: 7px; padding-left: 5px; margin-right: 12px; } .else-label { margin-right: 12px; } }
+@media (max-width: 699px) { .assembler-layout { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 16px; } .workspace-column { grid-row: 1; } .block-workspace { min-height: 260px; padding: 16px; } .assembler-layout .code-palette { max-height: none; } }

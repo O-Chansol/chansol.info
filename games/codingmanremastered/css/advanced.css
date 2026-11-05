@@ -1,0 +1,22 @@
+.mission-state { min-height: 18px; color: #59657c; font-size: 11px; font-weight: 700; text-align: center; }
+.mission-guide { border-bottom: 1px solid #e4e8f0; margin-bottom: 18px; padding-bottom: 12px; }
+.mission-guide .chapter-number { color: var(--stage-accent); font-size: 10px; letter-spacing: 1px; font-weight: 800; }
+.mission-guide h2 { margin: 8px 0; font-size: 16px; line-height: 1.6; }
+.mission-guide p { margin: 8px 0; font-size: 12px; color: #68758c; line-height: 1.8; }
+.mission-guide .mission-feedback { padding: 10px; border-radius: 7px; background: #f2f5fa; color: #455b80; }
+.enemy-panel .code-log { max-height: 280px; }
+.actor.detected { box-shadow: 0 0 0 1.2cqw #5cb1d680; }
+.actor.armored { border: max(2px, .8cqw) double #714a20; }
+.actor.boss-phase-two { box-shadow: 0 0 0 1cqw #ff335560; background-color: #dc3758; }
+.charged-shot { box-shadow: 0 0 0 .8cqw #ffffffa0, 0 0 2cqw #59c059; }
+.route-marker { position: absolute; z-index: -1; display: grid; place-items: center; width: 7%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px dashed #a24812; border-radius: 50%; color: #99430e; background: #ffffff70; font: 700 3cqw Arial, sans-serif; pointer-events: none; }
+@media (max-width: 699px) {
+    .advanced-page .arena, .advanced-page .health-bars { width: min(100%, max(130px, 38svh)); }
+    .advanced-page .mission-state { font-size: 10px; }
+    .advanced-page .enemy-panel { display: contents; }
+    .advanced-page .mission-guide { order: 0; width: 100%; margin: 0; }
+    .advanced-page .code-palette { order: 1; }
+    .advanced-page #bug_code { order: 2; margin-bottom: 0; }
+    .advanced-page #code-log { order: 3; width: 100%; }
+    .code-palette .scratch-block[data-shape="reporter"], .code-palette .scratch-block[data-shape="boolean"] { padding-left: 20px; padding-right: 20px; }
+}

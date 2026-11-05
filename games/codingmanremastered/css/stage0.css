@@ -1,0 +1,5 @@
+body[data-stage="0"] {
+    --enemy-color: #7f7f7f;
+    --stage-accent: #3373cc;
+    --player-color: #006eff;
+}

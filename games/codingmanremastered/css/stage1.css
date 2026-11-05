@@ -1,0 +1,4 @@
+body[data-stage="1"] {
+    --enemy-color: #006eff;
+    --stage-accent: #3373cc;
+}

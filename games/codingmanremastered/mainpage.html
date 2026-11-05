@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Coding Man Remastered</title>
+        <link rel="stylesheet" href="css/game.css">
+        <link rel="stylesheet" href="css/blocks.css">
+        <link rel="stylesheet" href="css/mainpage.css">
+    </head>
+    <body class="menu-page">
+        <main class="menu-card">
+            <p class="eyebrow">CODE. MOVE. DEBUG.</p>
+            <h1>CODING MAN<span>REMASTERED</span></h1>
+            <p class="menu-intro">코드를 무기로, 버그에 맞서다.<br>만화 《코딩맨》에서 착안한 코드 배틀 게임.</p>
+            <a class="primary-button start-link" href="stage1.html" id="start">플레이 시작 <kbd>Enter ↵</kbd></a>
+            <p class="menu-note">창 크기에 맞춰 플레이 영역이 자동으로 조정됩니다.</p>
+            <section class="menu-section" aria-labelledby="keys-title">
+                <h2 id="keys-title">키보드 + 마우스</h2>
+                <p class="basic-keys"><kbd>←</kbd> <kbd>→</kbd> 회전 · <kbd>↑</kbd> <kbd>↓</kbd> 전진 / 후진 · <kbd>Space</kbd> 공격</p>
+                <dl class="key-guide">
+                    <div><dt><kbd>R</kbd></dt><dd>무작위 이동</dd></div>
+                    <div><dt><kbd>F</kbd></dt><dd>버그 바라보기</dd></div>
+                    <div><dt><kbd>W</kbd> <kbd>S</kbd></dt><dd>±10걸음</dd></div>
+                    <div><dt><kbd>B</kbd></dt><dd>가장자리 확인</dd></div>
+                    <div><dt><kbd>Q</kbd> <kbd>E</kbd></dt><dd>좌 / 우 45° 회전</dd></div>
+                    <div><dt><kbd>Z</kbd></dt><dd>크기 줄이기</dd></div>
+                    <div><dt><kbd>X</kbd></dt><dd>숨기</dd></div>
+                    <div><dt><kbd>C</kbd> <kbd>V</kbd></dt><dd>소리 / 음소거</dd></div>
+                    <div><dt><kbd>T</kbd> <kbd>G</kbd></dt><dd>감지 / 조건 공격</dd></div>
+                    <div><dt><kbd>H</kbd></dt><dd>에너지 충전</dd></div>
+                    <div><dt><kbd>J</kbd> <kbd>K</kbd></dt><dd>위치 저장 / 경로 실행</dd></div>
+                    <div><dt><kbd>L</kbd></dt><dd>debug combo</dd></div>
+                </dl>
+                <p class="menu-note">스테이지마다 새 코드가 열립니다. 블록을 클릭해도 같은 동작이 실행됩니다.</p>
+            </section>
+            <nav class="stage-links" aria-label="스테이지 선택">
+                <a href="stage0.html">0 <span>연습</span></a>
+                <a href="stage1.html">1 <span>동작</span></a>
+                <a href="stage2.html">2 <span>형태</span></a>
+                <a href="stage3.html">3 <span>소리</span></a>
+                <a href="stage4.html">4 <span>이벤트</span></a>
+                <a href="code5.html?stage=5">5 <span>제어·코딩</span></a>
+                <a href="code5.html?stage=6">6 <span>감지</span></a>
+                <a href="code5.html?stage=7">7 <span>연산</span></a>
+                <a href="code5.html?stage=8">8 <span>변수</span></a>
+                <a href="code5.html?stage=9">9 <span>리스트</span></a>
+                <a href="code5.html?stage=10">10 <span>나만의 블록</span></a>
+            </nav>
+        </main>
+        <script src="js/commands.js"></script>
+        <script src="js/menu.js"></script>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "codingman-remastered",
+  "private": true,
+  "description": "Responsive Codingman with keyboard commands and locally drawn Scratch-style blocks.",
+  "scripts": {
+    "test": "node tests/verify.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

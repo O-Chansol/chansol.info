@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>전투 프로그래밍 | Coding Man</title>
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/blocks.css">
+    <link rel="stylesheet" href="css/code5.css">
+</head>
+<body class="assembler-page">
+    <header class="game-header">
+        <a class="brand" href="mainpage.html">CODING MAN<span>REMASTERED</span></a>
+        <h1 id="title">Stage 5 · 전투 프로그래밍</h1>
+        <label class="controls-hint">편집할 단계 <select id="editor-stage" aria-label="편집할 단계"><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
+    </header>
+    <main class="assembler-layout">
+        <aside class="code-palette" id="palette" aria-label="사용할 코드"><h2 class="panel-title">획득한 코드 <span>PALETTE</span></h2></aside>
+        <section class="workspace-column" aria-labelledby="workspace-title">
+            <div class="workspace-heading"><h2 id="workspace-title">전투 전에 나의 코드 작성</h2><span id="block-count">블록 0개</span></div>
+            <p class="assembler-note">이벤트 안에 실행할 블록을 놓으세요. 반복·조건 블록 안에도 코드를 넣을 수 있습니다. 블록 클릭은 추가 위치 선택, 드래그와 ↑ ↓는 순서 이동입니다.</p>
+            <div class="editor-toolbar"><span id="insertion-label">시작 이벤트에 추가</span><button id="step-out" type="button">한 단계 밖으로</button><button id="undo" type="button">되돌리기</button><button id="example-code" type="button">예제 코드</button><button id="clear-code" type="button">비우기</button><button id="run-code" type="button">코드 실행 ▶</button></div>
+            <div id="bgd" class="block-workspace" aria-label="코드 조립 공간"></div>
+            <p id="editor-status" class="editor-status" role="status" tabindex="-1"></p>
+            <p class="shortcut-note"><kbd>1</kbd> 시작 · <kbd>A</kbd> 반복 · <kbd>D</kbd> 계속 반복 · <kbd>Y</kbd> 기다리기 · <kbd>Delete</kbd> 선택 블록 삭제 · <kbd>Ctrl+Enter</kbd> 실행</p>
+            <details class="editor-help"><summary>코드 실행 규칙</summary><p>위에서 아래로 실행합니다. 여러 이벤트는 함께 실행되며, 같은 이벤트의 코드가 아직 실행 중이면 중복 실행하지 않습니다. 키 이벤트를 작성하면 해당 키는 작성한 코드를 실행합니다. 기술 재사용 대기 중에는 그 블록에서 기다립니다. 숨기와 크기 변경은 기존 전투처럼 1초 동안 유지됩니다. 빈 프로그램은 직접 조작으로 플레이합니다.</p><p>Stage 6에서 감지 값, 7에서 비교·산술·논리 연산, 8에서 변수, 9에서 리스트, 10에서 나만의 블록 정의와 호출이 열립니다. 새 단계에서는 이전 단계의 코드를 이어받습니다.</p></details>
+            <form id="assembler-form" class="assembler-actions"><input type="hidden" id="code"><button type="submit" id="submit" class="primary-button">코드 실행 · Stage 5 시작</button><a href="mainpage.html" class="secondary-button">메뉴 · Esc</a></form>
+        </section>
+    </main>
+    <script src="js/commands.js"></script>
+    <script src="js/blocks.js"></script>
+    <script src="js/program-model.js"></script>
+    <script src="js/block-assembler.js"></script>
+</body>
+</html>
