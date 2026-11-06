@@ -1,0 +1,1798 @@
+\documentclass{article}
+\usepackage{style}
+\geometry{a4paper, landscape, margin=1.8cm}
+
+\title{Mathematics: founded on Set Theory}
+\author{O Chansol \& the Echoes}
+\date{November 2026}
+
+\begin{document}
+
+\maketitle\newpage
+
+\setlength{\parskip}{\baselineskip}
+
+\section*{Foundations}\newpage
+
+\begin{center}\textbf{\Large Set Theory}\end{center}
+
+\section*{Prerequisites of Set Theory}
+
+This theory builds on the theory developed in \href{\Logic}{Logic and Language}.
+
+\section{Sets}\label{Set 1}
+
+\newcommand{\isASet}{\mathbf{isASet}}\subsection{\(\forall A((A\isASet)\iff\verum)\) \textit{d.a.r.}}\label{Set 1.1}
+
+\subsection{\(\forall A(A\isASet)\) \textit{t.}}\label{Set 1.2}
+
+\begin{fitchproof}
+    \have{1}{\verum} \t{\href{\Logic}{Logic ??.??}}
+    \have{2}{\forall A((A\isASet)\iff\verum)} \da{\hyperref[Set 1.1]{Set 1.1}}
+    \have{3}{((A\Aemarker\isASet)\iff\verum)} \Ae{2}
+    \have{4}{(((A\Aemarker\isASet)\then\verum)\and} \dbe{3}
+    \havecont{(\verum\then(A\Aemarker\isASet)))}
+    \have{5}{(\verum\then(A\Aemarker\isASet))} \ae{4}
+    \have{6}{(A\Aemarker\isASet)} \ie{5,1}
+    \have{7}{\forall A(A\isASet)} \Ae{6}
+\end{fitchproof}
+
+\newcommand{\isAnElementOf}{\mathbf{isAnElementOf}}\newcommand{\nisAnElementOf}{\owns}\subsection{Binary relation symbol \(\isAnElementOf\) is a primitive notion. \textit{d.a.r.} \\ \(\forall A((A\isASet)>\forall B((B\isASet)>((A\nisAnElementOf B)\iff(A\isAnElementOf B))))\)}\label{Set 1.3}
+
+\newcommand{\isAContainerOf}{\mathbf{isAContainerOf}}\newcommand{\nisAContainerOf}{\in}\subsection{\(\forall A((A\isASet)>\forall B((B\isASet)>((A\isAContainerOf B)\iff(B\isAnElementOf A))))\) \textit{d.a.r.} \\ \(\forall A((A\isASet)>\forall B((B\isASet)>((A\nisAContainerOf B)\iff(A\isAContainerOf B))))\)}\label{Set 1.4}
+
+\subsection{\(\forall A((A\isASet)>\forall B((B\isASet)>(\forall C((C\isASet)>((C\nisAnElementOf A)\iff(C\nisAnElementOf B)))>(A=B))))\) \textit{a.}}\label{Set 1.5}
+
+\subsection{\(\forall A\forall B((A=B)\iff\forall C((C\nisAnElementOf A)\iff(C\nisAnElementOf B)))\) \textit{t.}}\label{Set. 1.6}
+
+\begin{fitchproof}
+    \open
+    \hypo{1}{(A\Aemarker=B\Aemarker)}
+    \have{2}{\forall A\forall B((A=B)\then((C\Aemarker\nisAnElementOf A)\iff(C\Aemarker\nisAnElementOf B)))} \as{\href{\Logic}{Logic ??.??}}
+    \have{3}{\forall B((A\Aemarker=B)\then((C\Aemarker\nisAnElementOf A\Aemarker)\iff(C\Aemarker\nisAnElementOf B)))} \Ae{2}
+    \have{4}{((A\Aemarker=B\Aemarker)\then((C\Aemarker\nisAnElementOf A\Aemarker)\iff(C\Aemarker\nisAnElementOf B\Aemarker)))} \Ae{3}
+\end{fitchproof}
+\begin{fitchproof*}
+    \have{5}{((C\Aemarker\nisAnElementOf A\Aemarker)\iff(C\Aemarker\nisAnElementOf B\Aemarker))} \ie{4,1}
+    \have{6}{\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker))} \Ai{5}
+    \close
+    \have{7}{((A\Aemarker=B\Aemarker)\then\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker)))} \ii{1-6}
+    \have{8}{\forall A\forall B(\forall C((C\nisAnElementOf A)\iff(C\nisAnElementOf B))\then(A=B))} \a{\hyperref[Set 1.5]{Set 1.5}}
+    \have{9}{\forall B(\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B))\then(A\Aemarker=B))} \Ae{8}
+    \have{10}{(\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker))\then(A\Aemarker=B\Aemarker))} \Ae{9}
+    \have{11}{(((A\Aemarker=B\Aemarker)\then\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker)))\land} \ai{7,10}
+    \havecont{(\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker))\then(A\Aemarker=B\Aemarker)))}
+    \have{12}{((A\Aemarker=B\Aemarker)\iff\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B\Aemarker)))} \dbi{11}
+    \have{13}{\forall B((A\Aemarker=B)\iff\forall C((C\nisAnElementOf A\Aemarker)\iff(C\nisAnElementOf B)))} \Ai{12}
+    \have{14}{\forall A\forall B((A=B)\iff\forall C((C\nisAnElementOf A)\iff(C\nisAnElementOf B)))} \Ai{13}
+\end{fitchproof*}
+
+% Source: Hrbacek--Jech 1.2--1.3: extensional uniqueness
+\par\bigskip\phantomsection\label{uniquenessByMembership}
+\noindent\textbf{1.7 Uniqueness of a set specified by its elements}\quad{\small theorem schema}\par\smallskip
+For each formula $\phi[x]$ in which $B$ and $C$ do not occur free. Additional parameters are permitted; bound variables are renamed to avoid capture.
+
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\forall x((x\owns B^{\cdot})\diamond\phi[x])\land\forall x((x\owns C^{\cdot})\diamond\phi[x]))}
+\stHave{1}{1}{\forall x((x\owns B^{\cdot})\diamond\phi[x])}{$\land$E}{0}
+\stHave{10}{2}{\forall x((x\owns C^{\cdot})\diamond\phi[x])}{$\land$E}{0}
+\stHave{11}{3}{((x^{\cdot}\owns B^{\cdot})\diamond\phi[x^{\cdot}])}{$\forall$E}{1}
+\stHave{100}{4}{((x^{\cdot}\owns C^{\cdot})\diamond\phi[x^{\cdot}])}{$\forall$E}{2}
+\stHave{101}{5}{((x^{\cdot}\owns B^{\cdot})\diamond(x^{\cdot}\owns C^{\cdot}))}{D$\diamond$E, $>$I, $>$E, D$\diamond$I}{3,4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall x((x\owns B^{\cdot})\diamond(x\owns C^{\cdot}))}{$\forall$I}{5}
+\stHave{111}{7}{(B^{\cdot}=C^{\cdot})}{\hyperref[equalityOfSets]{T\,1.6}, $\forall$E, D$\diamond$E, $>$E}{6}
+\close
+\stHave{1000}{8}{\forall B\forall C((\forall x((x\owns B)\diamond\phi[x])\land\forall x((x\owns C)\diamond\phi[x]))>(B=C))}{$>$I, $\forall$I}{0-7}
+\open
+\stHypo{1001}{9}{\exists B\forall x((x\owns B)\diamond\phi[x])}
+\stHave{1010}{10}{\exists^{\times}B\forall x((x\owns B)\diamond\phi[x])}{$\land$I, D$\exists^{\times}$I}{9,8}
+\close
+\stHave{1011}{11}{(\exists B\forall x((x\owns B)\diamond\phi[x])>\exists^{\times}B\forall x((x\owns B)\diamond\phi[x]))}{$>$I}{9-10}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle (\exists B\forall x((x\owns B)\diamond\phi[x])>\exists^{\times}B\forall x((x\owns B)\diamond\phi[x]))\)\par
+
+% Source: Hrbacek--Jech 1.2, p. 6; corpus.py: both subset definitions
+\par\bigskip\phantomsection\label{aSetBeingASubsetOfASet}
+\noindent\textbf{1.8 A set being a subset of a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>((A\mathbf{isASubsetOf} B)\diamond\forall x((x\owns A)>(x\owns B)))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>((A\supset B)\diamond\forall x((x\owns A)>(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech, Chapter 1
+\par\bigskip\phantomsection\label{reflexivityOfInclusion}
+\noindent\textbf{1.9 Reflexivity of inclusion}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(x^{\cdot}\owns A^{\cdot})}
+\stHave{1}{1}{(x^{\cdot}\owns A^{\cdot})}{R}{0}
+\close
+\stHave{10}{2}{\forall x((x\owns A^{\cdot})>(x\owns A^{\cdot}))}{$>$I, $\forall$I}{0-1}
+\stHave{11}{3}{\sub{A^{\cdot}}{A^{\cdot}}}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[everyObjectIsASet]{T\,1.2}, D$\diamond$E, $>$E}{2}
+\stHave{100}{4}{\forall A(\st{A}>\sub{A}{A})}{$>$I, $\forall$I}{3}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\sub{A}{A})\)\par
+
+% Source: Hrbacek--Jech, Chapter 1
+\par\bigskip\phantomsection\label{transitivityOfInclusion}
+\noindent\textbf{1.10 Transitivity of inclusion}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\sub{A^{\cdot}}{B^{\cdot}}\land\sub{B^{\cdot}}{C^{\cdot}})}
+\stHave{1}{1}{\forall x((x\owns A^{\cdot})>(x\owns B^{\cdot}))}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, $\land$E, D$\diamond$E}{0}
+\stHave{10}{2}{\forall x((x\owns B^{\cdot})>(x\owns C^{\cdot}))}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, $\land$E, D$\diamond$E}{0}
+\open
+\stHypo{11}{3}{(x^{\cdot}\owns A^{\cdot})}
+\stHave{100}{4}{(x^{\cdot}\owns B^{\cdot})}{$\forall$E, $>$E}{1,3}
+\stHave{101}{5}{(x^{\cdot}\owns C^{\cdot})}{$\forall$E, $>$E}{2,4}
+\close
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall x((x\owns A^{\cdot})>(x\owns C^{\cdot}))}{$>$I, $\forall$I}{3-5}
+\stHave{111}{7}{\sub{A^{\cdot}}{C^{\cdot}}}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, D$\diamond$E}{6}
+\close
+\stHave{1000}{8}{\forall A\forall B\forall C((\sub{A}{B}\land\sub{B}{C})>\sub{A}{C})}{$>$I, $\forall$I}{0-7}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall C((\sub{A}{B}\land\sub{B}{C})>\sub{A}{C})\)\par
+
+% Source: Hrbacek--Jech, Chapter 1
+\par\bigskip\phantomsection\label{antisymmetryOfInclusion}
+\noindent\textbf{1.11 Antisymmetry of inclusion}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\sub{A^{\cdot}}{B^{\cdot}}\land\sub{B^{\cdot}}{A^{\cdot}})}
+\stHave{1}{1}{\forall x((x\owns A^{\cdot})\diamond(x\owns B^{\cdot}))}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, D$\diamond$I}{0}
+\stHave{10}{2}{(A^{\cdot}=B^{\cdot})}{\hyperref[equalityOfSets]{T\,1.6}, D$\diamond$E}{1}
+\close
+\stHave{11}{3}{\forall A\forall B((\sub{A}{B}\land\sub{B}{A})>(A=B))}{$>$I, $\forall$I}{0-2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((\sub{A}{B}\land\sub{B}{A})>(A=B))\)\par
+
+% Source: Hrbacek--Jech 1.3, p. 7; corpus.py: A_EMPTY_SET
+\par\bigskip\phantomsection\label{theAxiomOfEmptySet}
+\noindent\textbf{1.12 The axiom of empty set}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \exists A(\st{A}\land\forall x(\st{x}>\backslash(x\owns A)))\)\par
+
+% Source: Hrbacek--Jech 1.3, Lemma 3.1; corpus.py: DA_THE_EMPTY_SET, DA_N_THE_EMPTY_SET
+\par\bigskip\phantomsection\label{theEmptySet}
+\noindent\textbf{1.13 The empty set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\exists A\forall x\backslash(x\owns A)}{\hyperref[theAxiomOfEmptySet]{A\,1.12}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A(\forall x\backslash(x\owns A)\diamond\forall x((x\owns A)\diamond\triangle))}{D$\backslash$E, D$\diamond$I}{}
+\stHave{10}{2}{\exists^{\times}A\forall x\backslash(x\owns A)}{\hyperref[uniquenessByMembership]{TS\,1.7}, D$\exists^{\times}$I}{0,1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall x(\st{x}>\backslash(x\owns(\mathbf{theEmptySet} )))\)\par
+\noindent\(\displaystyle \forall x(\st{x}>\backslash(x\owns\bigcirc))\)\par
+
+% Source: Hrbacek--Jech 1.3: specification; corpus.py: AS_SPECIFICATION
+\par\bigskip\phantomsection\label{theAxiomSchemaOfSpecification}
+\noindent\textbf{1.14 The axiom schema of specification}\quad{\small axiom schema}\par\smallskip
+For each formula $\phi[x]$ with $B$ not free. Additional parameters are permitted; bound variables are renamed to avoid capture.
+
+\noindent\(\displaystyle \forall A(\st{A}>\exists B(\st{B}\land\forall x(\st{x}>((x\owns B)\diamond((x\owns A)\land\phi[x])))))\)\par
+
+% Source: Hrbacek--Jech 1.3; corpus.py: specified-set definitions
+\par\bigskip\phantomsection\label{theSpecifiedSubsetOfASet}
+\noindent\textbf{1.15 The specified subset of a set}\quad{\small defining axiom schema for a function symbol}\par\smallskip
+For each formula $\phi[x]$ with $B$ not free, under the same variable conditions as specification.
+
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\exists B\forall x((x\owns B)\diamond((x\owns A)\land\phi[x]))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\exists^{\times}B\forall x((x\owns B)\diamond((x\owns A)\land\phi[x]))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns(\mathbf{theSetSpecifiedBy} \phi\mathbf{From} A))\diamond((x\owns A)\land\phi[x]))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns\{y\owns A\mid\phi[y]\})\diamond((x\owns A)\land\phi[x]))))\)\par
+
+% Source: Hrbacek--Jech 1.3: pairing; corpus.py: A_BINDING
+\par\bigskip\phantomsection\label{theAxiomOfBinding}
+\noindent\textbf{1.16 The axiom of binding}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\exists C(\st{C}\land\forall x(\st{x}>((x\owns C)\diamond((x=A)\lor(x=B)))))))\)\par
+
+% Source: Hrbacek--Jech 1.3; corpus.py: binding definitions
+\par\bigskip\phantomsection\label{theBindingOfTwoSets}
+\noindent\textbf{1.17 The binding of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall B\exists C\forall x((x\owns C)\diamond((x=A)\lor(x=B)))}{\hyperref[theAxiomOfBinding]{A\,1.16}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\forall B\exists^{\times}C\forall x((x\owns C)\diamond((x=A)\lor(x=B)))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x(\st{x}>((x\owns(\mathbf{theBindingOf} A\mathbf{And} B))\diamond((x=A)\lor(x=B))))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x(\st{x}>((x\owns\{A,B\})\diamond((x=A)\lor(x=B))))))\)\par
+
+% Source: Hrbacek--Jech 1.3; corpus.py: singleton definitions
+\par\bigskip\phantomsection\label{theSingletonOfASet}
+\noindent\textbf{1.18 The singleton of a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall x((x\owns\bind{A}{A})\diamond((x=A)\lor(x=A)))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\forall x((x\owns\bind{A}{A})\diamond(x=A))}{$\lor$I, $\lor$E, D$\diamond$I}{0}
+\stHave{10}{2}{\forall A\exists^{\times}B\forall x((x\owns B)\diamond(x=A))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns(\mathbf{theSingletonOf} A))\diamond(x=A))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns\{A\})\diamond(x=A))))\)\par
+
+% Source: Hrbacek--Jech 1.3: union; corpus.py: A_UNION
+\par\bigskip\phantomsection\label{theAxiomOfUnion}
+\noindent\textbf{1.19 The axiom of union}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>\exists B(\st{B}\land\forall x(\st{x}>((x\owns B)\diamond\exists C(\st{C}\land((C\owns A)\land(x\owns C)))))))\)\par
+
+% Source: Hrbacek--Jech 1.3; corpus.py: union-of-family definitions
+\par\bigskip\phantomsection\label{theUnionOfSetsInASet}
+\noindent\textbf{1.20 The union of sets in a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\exists B\forall x((x\owns B)\diamond\exists C((C\owns A)\land(x\owns C)))}{\hyperref[theAxiomOfUnion]{A\,1.19}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\exists^{\times}B\forall x((x\owns B)\diamond\exists C((C\owns A)\land(x\owns C)))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns(\mathbf{theUnionOfSetsIn} A))\diamond\exists B((B\owns A)\land(x\owns B)))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall x(\st{x}>((x\owns\bigcup A)\diamond\exists B((B\owns A)\land(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech 1.4; corpus.py: union definitions
+\par\bigskip\phantomsection\label{theUnionOfTwoSets}
+\noindent\textbf{1.21 The union of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x((x\owns\bigcup\bind{A^{\cdot}}{B^{\cdot}})\diamond\exists C((C\owns\bind{A^{\cdot}}{B^{\cdot}})\land(x\owns C)))}{\hyperref[theUnionOfSetsInASet]{DA\,1.20}}{}
+\stHave{1}{1}{\forall x((x\owns\bigcup\bind{A^{\cdot}}{B^{\cdot}})\diamond((x\owns A^{\cdot})\lor(x\owns B^{\cdot})))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, $\exists$E, $\lor$E, $\exists$I}{0}
+\stHave{10}{2}{\forall A\forall B\exists^{\times}C\forall x((x\owns C)\diamond((x\owns A)\lor(x\owns B)))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists$I, $\forall$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(\mathbf{theUnionOf} A\mathbf{And} B))\diamond((x\owns A)\lor(x\owns B)))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(A\cup B))\diamond((x\owns A)\lor(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech 1.4; corpus.py: corresponding operation definitions
+\par\bigskip\phantomsection\label{theIntersectionOfTwoSets}
+\noindent\textbf{1.22 The intersection of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall B\exists C\forall x((x\owns C)\diamond((x\owns A)\land(x\owns B)))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\forall B\exists^{\times}C\forall x((x\owns C)\diamond((x\owns A)\land(x\owns B)))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(\mathbf{theIntersectionOf} A\mathbf{And} B))\diamond((x\owns A)\land(x\owns B)))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(A\cap B))\diamond((x\owns A)\land(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech 1.4; corpus.py: corresponding operation definitions
+\par\bigskip\phantomsection\label{theDifferenceOfTwoSets}
+\noindent\textbf{1.23 The difference of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall B\exists C\forall x((x\owns C)\diamond((x\owns A)\land\backslash(x\owns B)))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\forall B\exists^{\times}C\forall x((x\owns C)\diamond((x\owns A)\land\backslash(x\owns B)))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(\mathbf{theDifferenceOf} A\mathbf{And} B))\diamond((x\owns A)\land\backslash(x\owns B)))))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>\forall x((x\owns(A\sim B))\diamond((x\owns A)\land\backslash(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech 1.3: power set; corpus.py: A_POWER_SET, expanded subset
+\par\bigskip\phantomsection\label{theAxiomOfPowerSet}
+\noindent\textbf{1.24 The axiom of power set}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>\exists B(\st{B}\land\forall C(\st{C}>((C\owns B)\diamond\sub{C}{A}))))\)\par
+
+% Source: Hrbacek--Jech 1.3; corpus.py: power-set definitions
+\par\bigskip\phantomsection\label{thePowerSetOfASet}
+\noindent\textbf{1.25 The power set of a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\exists B\forall C((C\owns B)\diamond\sub{C}{A})}{\hyperref[theAxiomOfPowerSet]{A\,1.24}, \hyperref[everyObjectIsASet]{T\,1.2}}{}
+\stHave{1}{1}{\forall A\exists^{\times}B\forall C((C\owns B)\diamond\sub{C}{A})}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\exists^{\times}$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>((B\owns(\mathbf{thePowerSetOf} A))\diamond\sub{B}{A})))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>((B\owns\mathcal{P}(A))\diamond\sub{B}{A})))\)\par
+
+% Source: Hrbacek--Jech 6.3; corpus.py: AS_SUBSTITUTION, guards removed using everyObjectIsASet
+\par\bigskip\phantomsection\label{theAxiomSchemaOfSubstitution}
+\noindent\textbf{1.26 The axiom schema of substitution}\quad{\small axiom schema}\par\smallskip
+For each formula $\phi[x,y]$ with $B$ not free. Additional parameters are permitted; all substitutions avoid variable capture.
+
+\noindent\(\displaystyle \forall A(\st{A}>(\forall x\forall y\forall z(((\phi[x,y]\land\phi[x,z])>(y=z)))>\)\par
+\noindent\(\displaystyle \exists B(\st{B}\land\forall y((y\owns B)\diamond\exists x((x\owns A)\land\phi[x,y])))))\)\par
+
+% Source: Hrbacek--Jech 14.2; corpus.py: A_REGULARITY, equivalent nonemptiness condition
+\par\bigskip\phantomsection\label{theAxiomOfRegularity}
+\noindent\textbf{1.27 The axiom of regularity}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>(\backslash(A=\emp)>\exists B((B\owns A)\land\backslash\exists x((x\owns A)\land(x\owns B)))))\)\par
+
+% Source: Hrbacek--Jech, Chapter 1
+\par\bigskip\phantomsection\label{aSetBeingNonempty}
+\noindent\textbf{1.28 A set being nonempty}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>((A\mathbf{isNonempty} )\diamond\exists x(x\owns A)))\)\par
+
+% Source: Hrbacek--Jech, Chapter 1
+\par\bigskip\phantomsection\label{emptinessAndMembership}
+\noindent\textbf{1.29 Emptiness and membership}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A((A=\emp)\diamond\forall x((x\owns A)\diamond(x\owns\emp)))}{\hyperref[equalityOfSets]{T\,1.6}}{}
+\stHave{1}{1}{\forall A((A=\emp)\diamond\forall x\backslash(x\owns A))}{\hyperref[theEmptySet]{DA\,1.13}, D$\diamond$E, D$\backslash$E}{0}
+\stHave{10}{2}{\forall A((A=\emp)\diamond\backslash\exists x(x\owns A))}{$\forall$E, $\exists$E, D$\backslash$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A((A=\emp)\diamond\backslash\exists x(x\owns A))\)\par
+
+\clearpage
+\phantomsection\label{stChapter2}\textbf{2 Pairs}
+
+\par\medskip
+
+
+% Source: Hrbacek--Jech 2.1, Definition 1.1; corpus.py: pair constructor, equivalent equality form
+\par\bigskip\phantomsection\label{thePairOfTwoSets}
+\noindent\textbf{2.1 The pair of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}}=\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}})\land(Y=\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\bind{\sing{A^{\cdot}}}{\bind{A^{\cdot}}{B^{\cdot}}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>((\mathbf{thePairOf} A\mathbf{And} B)=\bind{\sing{A}}{\bind{A}{B}})))\)\par
+\noindent\(\displaystyle \forall A(\st{A}>\forall B(\st{B}>(\pair{A}{B}=\bind{\sing{A}}{\bind{A}{B}})))\)\par
+
+% Source: Hrbacek--Jech 2.1, proof of Theorem 1.2, expanded into a recovery lemma
+\par\bigskip\phantomsection\label{commonElementsOfAPair}
+\noindent\textbf{2.2 The common elements of the members of a pair}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\forall Z((Z\owns\pair{A^{\cdot}}{B^{\cdot}})>(x^{\cdot}\owns Z))}
+\stHave{1}{1}{(\sing{A^{\cdot}}\owns\pair{A^{\cdot}}{B^{\cdot}})}{\hyperref[thePairOfTwoSets]{DA\,2.1}, \hyperref[theBindingOfTwoSets]{DA\,1.17}}{}
+\stHave{10}{2}{(x^{\cdot}\owns\sing{A^{\cdot}})}{$\forall$E, $>$E}{0,1}
+\stHave{11}{3}{(x^{\cdot}=A^{\cdot})}{\hyperref[theSingletonOfASet]{DA\,1.18}}{2}
+\close
+\stHave{100}{4}{(\forall Z((Z\owns\pair{A^{\cdot}}{B^{\cdot}})>(x^{\cdot}\owns Z))>(x^{\cdot}=A^{\cdot}))}{$>$I}{0-3}
+\open
+\stHypo{101}{5}{(x^{\cdot}=A^{\cdot})}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{((x^{\cdot}\owns\sing{A^{\cdot}})\land(x^{\cdot}\owns\bind{A^{\cdot}}{B^{\cdot}}))}{\hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[equalitySubstitution]{AS}}{5}
+\stHave{111}{7}{\forall Z((Z\owns\pair{A^{\cdot}}{B^{\cdot}})>(x^{\cdot}\owns Z))}{\hyperref[thePairOfTwoSets]{DA\,2.1}, $\lor$E, $>$I, $\forall$I}{6}
+\close
+\stHave{1000}{8}{\forall A\forall B\forall x(\forall Z((Z\owns\pair{A}{B})>(x\owns Z))\diamond(x=A))}{$>$I, D$\diamond$I, $\forall$I}{4,5-7}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall x(\forall Z((Z\owns\pair{A}{B})>(x\owns Z))\diamond(x=A))\)\par
+
+% Source: Hrbacek--Jech 2.1, Exercise 1.1 and Definition 1.1
+\par\bigskip\phantomsection\label{unionOfAPair}
+\noindent\textbf{2.3 The union of a pair}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x((x\owns\bigcup\pair{A^{\cdot}}{B^{\cdot}})\diamond((x=A^{\cdot})\lor(x=B^{\cdot})))}{\hyperref[theUnionOfSetsInASet]{DA\,1.20}, \hyperref[thePairOfTwoSets]{DA\,2.1}, \hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[theBindingOfTwoSets]{DA\,1.17}}{}
+\stHave{1}{1}{\forall x((x\owns\bigcup\pair{A^{\cdot}}{B^{\cdot}})\diamond(x\owns\bind{A^{\cdot}}{B^{\cdot}}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, D$\diamond$I}{0}
+\stHave{10}{2}{\forall A\forall B(\bigcup\pair{A}{B}=\bind{A}{B})}{\hyperref[equalityOfSets]{T\,1.6}, $\forall$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B(\bigcup\pair{A}{B}=\bind{A}{B})\)\par
+
+% Source: Hrbacek--Jech 2.1, proof of Theorem 1.2
+\par\bigskip\phantomsection\label{cancellationOfBinding}
+\noindent\textbf{2.4 Cancellation of a common member in equal bindings}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\bind{A^{\cdot}}{B^{\cdot}}=\bind{A^{\cdot}}{C^{\cdot}})}
+\stHave{1}{1}{((B^{\cdot}=A^{\cdot})\lor(B^{\cdot}=C^{\cdot}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[equalitySubstitution]{AS}}{0}
+\stHave{10}{2}{((C^{\cdot}=A^{\cdot})\lor(C^{\cdot}=B^{\cdot}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[equalitySubstitution]{AS}}{0}
+\open
+\stHypo{11}{3}{(B^{\cdot}=A^{\cdot})}
+\stHave{100}{4}{(B^{\cdot}=C^{\cdot})}{\hyperref[equalitySubstitution]{AS}, $\lor$E}{2,3}
+\close
+\stHave{101}{5}{((B^{\cdot}=A^{\cdot})>(B^{\cdot}=C^{\cdot}))}{$>$I}{3-4}
+\open
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHypo{110}{6}{(B^{\cdot}=C^{\cdot})}
+\stHave{111}{7}{(B^{\cdot}=C^{\cdot})}{R}{6}
+\close
+\stHave{1000}{8}{((B^{\cdot}=C^{\cdot})>(B^{\cdot}=C^{\cdot}))}{$>$I}{6-7}
+\stHave{1001}{9}{(B^{\cdot}=C^{\cdot})}{$\lor$E}{1,5,8}
+\close
+\stHave{1010}{10}{\forall A\forall B\forall C((\bind{A}{B}=\bind{A}{C})>(B=C))}{$>$I, $\forall$I}{0-9}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall C((\bind{A}{B}=\bind{A}{C})>(B=C))\)\par
+
+% Source: Hrbacek--Jech 2.1, Theorem 1.2
+\par\bigskip\phantomsection\label{equalityOfPairs}
+\noindent\textbf{2.5 Equality of pairs}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\pair{A^{\cdot}}{B^{\cdot}}=\pair{C^{\cdot}}{D^{\cdot}})}
+\stHave{1}{1}{\forall x((x=A^{\cdot})\diamond(x=C^{\cdot}))}{\hyperref[commonElementsOfAPair]{T\,2.2}, \hyperref[equalitySubstitution]{AS}}{0}
+\stHave{10}{2}{(A^{\cdot}=C^{\cdot})}{$\forall$E, $=$I, D$\diamond$E}{1}
+\stHave{11}{3}{(\bind{A^{\cdot}}{B^{\cdot}}=\bind{C^{\cdot}}{D^{\cdot}})}{\hyperref[unionOfAPair]{T\,2.3}, \hyperref[equalitySubstitution]{AS}}{0}
+\stHave{100}{4}{(\bind{A^{\cdot}}{B^{\cdot}}=\bind{A^{\cdot}}{D^{\cdot}})}{\hyperref[equalitySubstitution]{AS}}{2,3}
+\stHave{101}{5}{(B^{\cdot}=D^{\cdot})}{\hyperref[cancellationOfBinding]{T\,2.4}, $\forall$E, $>$E}{4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{((A^{\cdot}=C^{\cdot})\land(B^{\cdot}=D^{\cdot}))}{$\land$I}{2,5}
+\close
+\stHave{111}{7}{((\pair{A^{\cdot}}{B^{\cdot}}=\pair{C^{\cdot}}{D^{\cdot}})>((A^{\cdot}=C^{\cdot})\land(B^{\cdot}=D^{\cdot})))}{$>$I}{0-6}
+\stHave{1000}{8}{(((A^{\cdot}=C^{\cdot})\land(B^{\cdot}=D^{\cdot}))>(\pair{A^{\cdot}}{B^{\cdot}}=\pair{C^{\cdot}}{D^{\cdot}}))}{\hyperref[equalitySubstitution]{AS}, $=$I, $>$I}{}
+\stHave{1001}{9}{\forall A\forall B\forall C\forall D((\pair{A}{B}=\pair{C}{D})\diamond((A=C)\land(B=D)))}{D$\diamond$I, $\forall$I}{7,8}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall C\forall D((\pair{A}{B}=\pair{C}{D})\diamond((A=C)\land(B=D)))\)\par
+
+% Source: corpus.py: DA_A_SET_BEING_A_PAIR; Hrbacek--Jech 2.1
+\par\bigskip\phantomsection\label{aSetBeingAPair}
+\noindent\textbf{2.6 A set being a pair}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall P(\st{P}>((P\mathbf{isAPair} )\diamond\exists A(\st{A}\land\exists B(\st{B}\land(P=\pair{A}{B})))))\)\par
+
+% Source: corpus.py: pair-projection definitions; Hrbacek--Jech 2.1, Theorem 1.2
+\par\bigskip\phantomsection\label{theFirstProjectionOfAPair}
+\noindent\textbf{2.7 The first projection of a pair}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P(\Pair{P}>\exists X(\exists B(P=\pair{X}{B})))}{\hyperref[aSetBeingAPair]{DA\,2.6}, $\exists$E, $\exists$I}{}
+\stHave{1}{1}{\forall P\forall X\forall Y(((\exists B(P=\pair{X}{B}))\land(\exists B(P=\pair{Y}{B})))>(X=Y))}{\hyperref[equalityOfPairs]{T\,2.5}, $\exists$E}{}
+\stHave{10}{2}{\forall P(\Pair{P}>\exists^{\times}X(\exists B(P=\pair{X}{B})))}{D$\exists^{\times}$I}{0,1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall P(\st{P}>(\Pair{P}>\exists B(P=\pair{(\mathbf{theFirstProjectionOf} P)}{B})))\)\par
+\noindent\(\displaystyle \forall P(\st{P}>(\Pair{P}>\exists B(P=\pair{(\pi_0P)}{B})))\)\par
+
+% Source: corpus.py: pair-projection definitions; Hrbacek--Jech 2.1, Theorem 1.2
+\par\bigskip\phantomsection\label{theSecondProjectionOfAPair}
+\noindent\textbf{2.8 The second projection of a pair}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P(\Pair{P}>\exists X(\exists A(P=\pair{A}{X})))}{\hyperref[aSetBeingAPair]{DA\,2.6}, $\exists$E, $\exists$I}{}
+\stHave{1}{1}{\forall P\forall X\forall Y(((\exists A(P=\pair{A}{X}))\land(\exists A(P=\pair{A}{Y})))>(X=Y))}{\hyperref[equalityOfPairs]{T\,2.5}, $\exists$E}{}
+\stHave{10}{2}{\forall P(\Pair{P}>\exists^{\times}X(\exists A(P=\pair{A}{X})))}{D$\exists^{\times}$I}{0,1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall P(\st{P}>(\Pair{P}>\exists A(P=\pair{A}{(\mathbf{theSecondProjectionOf} P)})))\)\par
+\noindent\(\displaystyle \forall P(\st{P}>(\Pair{P}>\exists A(P=\pair{A}{(\pi_1P)})))\)\par
+
+% Source: Hrbacek--Jech 2.1; pair characteristic theorem
+\par\bigskip\phantomsection\label{projectionsOfAPair}
+\noindent\textbf{2.9 The projections of a pair}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\Pair{\pair{A^{\cdot}}{B^{\cdot}}}}{\hyperref[aSetBeingAPair]{DA\,2.6}, $=$I, $\exists$I}{}
+\stHave{1}{1}{\exists Y(\pair{A^{\cdot}}{B^{\cdot}}=\pair{\pzero{\pair{A^{\cdot}}{B^{\cdot}}}}{Y})}{\hyperref[theFirstProjectionOfAPair]{DA\,2.7}}{0}
+\stHave{10}{2}{(\pzero{\pair{A^{\cdot}}{B^{\cdot}}}=A^{\cdot})}{\hyperref[equalityOfPairs]{T\,2.5}, $\exists$E}{1}
+\stHave{11}{3}{\exists X(\pair{A^{\cdot}}{B^{\cdot}}=\pair{X}{\pone{\pair{A^{\cdot}}{B^{\cdot}}}})}{\hyperref[theSecondProjectionOfAPair]{DA\,2.8}}{0}
+\stHave{100}{4}{(\pone{\pair{A^{\cdot}}{B^{\cdot}}}=B^{\cdot})}{\hyperref[equalityOfPairs]{T\,2.5}, $\exists$E}{3}
+\stHave{101}{5}{\forall A\forall B((\pzero{\pair{A}{B}}=A)\land(\pone{\pair{A}{B}}=B))}{$\land$I, $\forall$I}{2,4}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((\pzero{\pair{A}{B}}=A)\land(\pone{\pair{A}{B}}=B))\)\par
+
+% Source: Hrbacek--Jech 2.1, Exercise 1.1
+\par\bigskip\phantomsection\label{boundsForAPair}
+\noindent\textbf{2.10 Bounds for the components of a pair}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall B(\bigcup\pair{A}{B}=\bind{A}{B})}{\hyperref[unionOfAPair]{T\,2.3}}{}
+\stHave{1}{1}{\forall A\forall B((A\owns\bigcup\pair{A}{B})\land(B\owns\bigcup\pair{A}{B}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}}{0}
+\open
+\stHypo{10}{2}{((A^{\cdot}\owns S^{\cdot})\land(B^{\cdot}\owns S^{\cdot}))}
+\stHave{11}{3}{(\sub{\sing{A^{\cdot}}}{S^{\cdot}}\land\sub{\bind{A^{\cdot}}{B^{\cdot}}}{S^{\cdot}})}{\hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}}{2}
+\stHave{100}{4}{\sub{\pair{A^{\cdot}}{B^{\cdot}}}{\pow{S^{\cdot}}}}{\hyperref[thePairOfTwoSets]{DA\,2.1}, \hyperref[thePowerSetOfASet]{DA\,1.25}}{3}
+\stHave{101}{5}{(\pair{A^{\cdot}}{B^{\cdot}}\owns\pow{\pow{S^{\cdot}}})}{\hyperref[thePowerSetOfASet]{DA\,1.25}}{4}
+\close
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall A\forall B\forall S(((A\owns S)\land(B\owns S))>(\pair{A}{B}\owns\pow{\pow{S}}))}{$>$I, $\forall$I}{2-5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((A\owns\bigcup\pair{A}{B})\land(B\owns\bigcup\pair{A}{B}))\)\par
+\noindent\(\displaystyle \forall A\forall B\forall S(((A\owns S)\land(B\owns S))>(\pair{A}{B}\owns\pow{\pow{S}}))\)\par
+
+\clearpage
+\phantomsection\label{stChapter3}\textbf{3 Relations}
+
+\par\medskip
+
+
+% Source: Hrbacek--Jech 2.2, Definition 2.1; corpus.py: relation definitions
+\par\bigskip\phantomsection\label{aSetBeingARelation}
+\noindent\textbf{3.1 A set being a relation}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R(\st{R}>((R\mathbf{isARelation} )\diamond\forall P(\st{P}>((P\owns R)>\Pair{P}))))\)\par
+\noindent\(\displaystyle \forall R(\st{R}>((R\mathbf{isASetOfPairs} )\diamond\forall P(\st{P}>((P\owns R)>\Pair{P}))))\)\par
+
+% Source: Hrbacek--Jech 2.2: domain; corpus.py: DA_THE_DOMAIN_OF_A_RELATION
+\par\bigskip\phantomsection\label{theDomainOfARelation}
+\noindent\textbf{3.2 The domain of a relation}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\Rel{R^{\cdot}}}
+\stHave{1}{1}{\forall x(\exists P((P\owns R^{\cdot})\land(\pzero{P}=x))>(x\owns\bigcup\bigcup R^{\cdot}))}{\hyperref[aSetBeingARelation]{DA\,3.1}, \hyperref[boundsForAPair]{T\,2.10}, \hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[theUnionOfSetsInASet]{DA\,1.20}}{0}
+\stHave{10}{2}{\exists D\forall x((x\owns D)\diamond\exists P((P\owns R^{\cdot})\land(\pzero{P}=x)))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{1}
+\stHave{11}{3}{\exists^{\times}D\forall x((x\owns D)\diamond\exists P((P\owns R^{\cdot})\land(\pzero{P}=x)))}{\hyperref[uniquenessByMembership]{TS\,1.7}}{2}
+\close
+\stHave{100}{4}{\forall R(\Rel{R}>\exists^{\times}D\forall x((x\owns D)\diamond\exists P((P\owns R)\land(\pzero{P}=x))))}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall R(\st{R}>(\Rel{R}>\forall x((x\owns(\mathbf{theDomainOf} R))\diamond\exists P((P\owns R)\land(\pzero{P}=x)))))\)\par
+
+% Source: Hrbacek--Jech 2.2: range; corpus.py: DA_THE_RANGE_OF_A_RELATION
+\par\bigskip\phantomsection\label{theRangeOfARelation}
+\noindent\textbf{3.3 The range of a relation}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\Rel{R^{\cdot}}}
+\stHave{1}{1}{\forall y(\exists P((P\owns R^{\cdot})\land(\pone{P}=y))>(y\owns\bigcup\bigcup R^{\cdot}))}{\hyperref[aSetBeingARelation]{DA\,3.1}, \hyperref[boundsForAPair]{T\,2.10}, \hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[theUnionOfSetsInASet]{DA\,1.20}}{0}
+\stHave{10}{2}{\exists D\forall y((y\owns D)\diamond\exists P((P\owns R^{\cdot})\land(\pone{P}=y)))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{1}
+\stHave{11}{3}{\exists^{\times}D\forall y((y\owns D)\diamond\exists P((P\owns R^{\cdot})\land(\pone{P}=y)))}{\hyperref[uniquenessByMembership]{TS\,1.7}}{2}
+\close
+\stHave{100}{4}{\forall R(\Rel{R}>\exists^{\times}D\forall y((y\owns D)\diamond\exists P((P\owns R)\land(\pone{P}=y))))}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall R(\st{R}>(\Rel{R}>\forall y((y\owns(\mathbf{theRangeOf} R))\diamond\exists P((P\owns R)\land(\pone{P}=y)))))\)\par
+
+% Source: Hrbacek--Jech 2.2: field; corpus.py: DA_THE_FIELD_OF_A_RELATION
+\par\bigskip\phantomsection\label{theFieldOfARelation}
+\noindent\textbf{3.4 The field of a relation}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{((\dom{R^{\cdot}}\cup\ran{R^{\cdot}})=(\dom{R^{\cdot}}\cup\ran{R^{\cdot}}))}{$=$I}{}
+\stHave{1}{1}{\exists X(X=(\dom{R^{\cdot}}\cup\ran{R^{\cdot}}))}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=(\dom{R^{\cdot}}\cup\ran{R^{\cdot}}))\land(Y=(\dom{R^{\cdot}}\cup\ran{R^{\cdot}})))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=(\dom{R^{\cdot}}\cup\ran{R^{\cdot}}))}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall R(\st{R}>(\Rel{R}>((\mathbf{theFieldOf} R)=(\dom{R}\cup\ran{R}))))\)\par
+
+% Source: Hrbacek--Jech 2.2: relation in a set
+\par\bigskip\phantomsection\label{aRelationBeingOnASet}
+\noindent\textbf{3.5 A relation being on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isARelationOn} A)\diamond\)\par
+\noindent\(\displaystyle (\Rel{R}\land\forall P((P\owns R)>((\pzero{P}\owns A)\land(\pone{P}\owns A)))))\)\par
+
+% Source: Hrbacek--Jech 2.4, equivalence relations
+\par\bigskip\phantomsection\label{aRelationBeingReflexiveOnASet}
+\noindent\textbf{3.6 A relation being reflexive on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A(\On{R}{A}>((R\mathbf{isReflexiveOn} A)\diamond\forall x((x\owns A)>(\pair{x}{x}\owns R))))\)\par
+
+% Source: Hrbacek--Jech 2.4
+\par\bigskip\phantomsection\label{aRelationBeingSymmetric}
+\noindent\textbf{3.7 A relation being symmetric}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R(\Rel{R}>((R\mathbf{isSymmetric} )\diamond\forall x\forall y((\pair{x}{y}\owns R)>(\pair{y}{x}\owns R))))\)\par
+
+% Source: Hrbacek--Jech 2.4
+\par\bigskip\phantomsection\label{aRelationBeingTransitive}
+\noindent\textbf{3.8 A relation being transitive}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R(\Rel{R}>((R\mathbf{isTransitive} )\diamond\forall x\forall y\forall z(((\pair{x}{y}\owns R)\land(\pair{y}{z}\owns R))>(\pair{x}{z}\owns R))))\)\par
+
+% Source: Hrbacek--Jech 2.4
+\par\bigskip\phantomsection\label{aRelationBeingAnEquivalenceRelationOnASet}
+\noindent\textbf{3.9 A relation being an equivalence relation on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isAnEquivalenceRelationOn} A)\diamond\)\par
+\noindent\(\displaystyle (\On{R}{A}\land(\Refl{R}{A}\land((R\hyperref[aRelationBeingSymmetric]{\mathbf{isSymmetric}} )\land\Trans{R}))))\)\par
+
+% Source: Hrbacek--Jech 2.4: equivalence class
+\par\bigskip\phantomsection\label{theEquivalenceClassOfAnElement}
+\noindent\textbf{3.10 The equivalence class of an element}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\}=\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\})\land(Y=\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{x\owns A^{\cdot}\mid(\pair{a^{\cdot}}{x}\owns R^{\cdot})\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall R\forall A\forall a(((R\hyperref[aRelationBeingAnEquivalenceRelationOnASet]{\mathbf{isAnEquivalenceRelationOn}} A)\land(a\owns A))>\)\par
+\noindent\(\displaystyle ((\mathbf{theEquivalenceClassOf} a\mathbf{Under} R\mathbf{In} A)=\{x\owns A\mid(\pair{a}{x}\owns R)\}))\)\par
+
+% Source: Hrbacek--Jech 2.5, Definition 5.1
+\par\bigskip\phantomsection\label{aRelationBeingAntisymmetric}
+\noindent\textbf{3.11 A relation being antisymmetric}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R(\Rel{R}>((R\mathbf{isAntisymmetric} )\diamond\forall x\forall y(((\pair{x}{y}\owns R)\land(\pair{y}{x}\owns R))>(x=y))))\)\par
+
+% Source: Hrbacek--Jech 2.5, Definition 5.2
+\par\bigskip\phantomsection\label{aRelationBeingAPartialOrderOnASet}
+\noindent\textbf{3.12 A relation being a partial order on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isAPartialOrderOn} A)\diamond(\On{R}{A}\land(\Refl{R}{A}\land(\Anti{R}\land\Trans{R}))))\)\par
+
+% Source: Hrbacek--Jech 2.5, Definitions 5.4--5.5
+\par\bigskip\phantomsection\label{aRelationBeingAStrictPartialOrderOnASet}
+\noindent\textbf{3.13 A relation being a strict partial order on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isAStrictPartialOrderOn} A)\diamond\)\par
+\noindent\(\displaystyle (\On{R}{A}\land(\Trans{R}\land\forall x\forall y((\pair{x}{y}\owns R)>\backslash(\pair{y}{x}\owns R)))))\)\par
+
+% Source: Hrbacek--Jech 2.5: linear orders; reflexive convention
+\par\bigskip\phantomsection\label{aRelationBeingALinearOrderOnASet}
+\noindent\textbf{3.14 A relation being a linear order on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isALinearOrderOn} A)\diamond\)\par
+\noindent\(\displaystyle (\PO{R}{A}\land\forall x((x\owns A)>\forall y((y\owns A)>((\pair{x}{y}\owns R)\lor(\pair{y}{x}\owns R))))))\)\par
+
+% Source: Hrbacek--Jech 2.5: least element
+\par\bigskip\phantomsection\label{aSetBeingALeastElement}
+\noindent\textbf{3.15 A set being a least element}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall B\forall b((b\mathbf{isALeastElementOf} B\mathbf{Under} R)\diamond\)\par
+\noindent\(\displaystyle ((b\owns B)\land\forall x((x\owns B)>(\pair{b}{x}\owns R))))\)\par
+
+% Source: Hrbacek--Jech 2.5: uniqueness of least elements
+\par\bigskip\phantomsection\label{uniquenessOfALeastElement}
+\noindent\textbf{3.16 Uniqueness of a least element}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\PO{R^{\cdot}}{A^{\cdot}}\land((b^{\cdot}\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B^{\cdot}\mathbf{Under} R^{\cdot})\land(c^{\cdot}\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B^{\cdot}\mathbf{Under} R^{\cdot})))}
+\stHave{1}{1}{((b^{\cdot}\owns B^{\cdot})\land(c^{\cdot}\owns B^{\cdot}))}{\hyperref[aSetBeingALeastElement]{DA\,3.15}, $\land$E}{0}
+\stHave{10}{2}{((\pair{b^{\cdot}}{c^{\cdot}}\owns R^{\cdot})\land(\pair{c^{\cdot}}{b^{\cdot}}\owns R^{\cdot}))}{\hyperref[aSetBeingALeastElement]{DA\,3.15}, $\forall$E, $>$E, $\land$I}{0,1}
+\stHave{11}{3}{(b^{\cdot}=c^{\cdot})}{\hyperref[aRelationBeingAPartialOrderOnASet]{DA\,3.12}, \hyperref[aRelationBeingAntisymmetric]{DA\,3.11}}{0,2}
+\close
+\stHave{100}{4}{\forall R\forall A\forall B(\PO{R}{A}>\forall b\forall c(((b\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B\mathbf{Under} R)\land(c\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B\mathbf{Under} R))>(b=c)))}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall R\forall A\forall B(\PO{R}{A}>\forall b\forall c(\)\par
+\noindent\(\displaystyle ((b\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B\mathbf{Under} R)\land(c\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B\mathbf{Under} R))>(b=c)))\)\par
+
+% Source: Hrbacek--Jech 3.2, Definition 2.3; reflexive-order version
+\par\bigskip\phantomsection\label{aRelationBeingAWellOrderOnASet}
+\noindent\textbf{3.17 A relation being a well order on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall R\forall A((R\mathbf{isAWellOrderOn} A)\diamond\)\par
+\noindent\(\displaystyle ((R\hyperref[aRelationBeingALinearOrderOnASet]{\mathbf{isALinearOrderOn}} A)\land\forall B((\sub{B}{A}\land\backslash(B=\emp))>\)\par
+\noindent\(\displaystyle \exists b(b\hyperref[aSetBeingALeastElement]{\mathbf{isALeastElementOf}} B\mathbf{Under} R))))\)\par
+
+% Source: Hrbacek--Jech 2.5, Example 5.3(b), formalized as a definition
+\par\bigskip\phantomsection\label{theInclusionRelationOnASet}
+\noindent\textbf{3.18 The inclusion relation on a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\}=\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\})\land(Y=\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{P\owns\prodset{A^{\cdot}}{A^{\cdot}}\mid\sub{\pzero{P}}{\pone{P}}\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A((\mathbf{theInclusionRelationOn} A)=\{P\owns\prodset{A}{A}\mid\sub{\pzero{P}}{\pone{P}}\})\)\par
+
+% Source: Hrbacek--Jech 2.5, Example 5.3(b), with proof
+\par\bigskip\phantomsection\label{inclusionIsAPartialOrder}
+\noindent\textbf{3.19 Inclusion is a partial order}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x\forall y((\pair{x}{y}\owns(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A^{\cdot}))\diamond(((x\owns A^{\cdot})\land(y\owns A^{\cdot}))\land\sub{x}{y}))}{\hyperref[theInclusionRelationOnASet]{DA\,3.18}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}, \hyperref[membershipOfACartesianProduct]{T\,7.2}, \hyperref[projectionsOfAPair]{T\,2.9}}{}
+\stHave{1}{1}{\On{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A^{\cdot})}{A^{\cdot}}}{\hyperref[aRelationBeingOnASet]{DA\,3.5}, \hyperref[aSetBeingARelation]{DA\,3.1}, \hyperref[theCartesianProductOfTwoSets]{DA\,7.1}}{0}
+\stHave{10}{2}{\Refl{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A^{\cdot})}{A^{\cdot}}}{\hyperref[reflexivityOfInclusion]{T\,1.9}, \hyperref[aRelationBeingReflexiveOnASet]{DA\,3.6}}{0,1}
+\stHave{11}{3}{\Anti{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A^{\cdot})}}{\hyperref[antisymmetryOfInclusion]{T\,1.11}, \hyperref[aRelationBeingAntisymmetric]{DA\,3.11}}{0,1}
+\stHave{100}{4}{\Trans{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A^{\cdot})}}{\hyperref[transitivityOfInclusion]{T\,1.10}, \hyperref[aRelationBeingTransitive]{DA\,3.8}}{0,1}
+\stHave{101}{5}{\forall A\PO{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A)}{A}}{\hyperref[aRelationBeingAPartialOrderOnASet]{DA\,3.12}, $\land$I, $\forall$I}{1,2,3,4}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\PO{(\hyperref[theInclusionRelationOnASet]{\mathbf{theInclusionRelationOn}} A)}{A}\)\par
+
+\clearpage
+\phantomsection\label{stChapter4}\textbf{4 Functions}
+
+\par\medskip
+
+
+% Source: Hrbacek--Jech 2.3, Definition 3.1; corpus.py: DA_A_SET_BEING_A_FUNCTION
+\par\bigskip\phantomsection\label{aSetBeingAFunction}
+\noindent\textbf{4.1 A set being a function}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F(\st{F}>((F\mathbf{isAFunction} )\diamond(\Rel{F}\land\)\par
+\noindent\(\displaystyle \forall P((P\owns F)>\forall Q((Q\owns F)>((\pzero{P}=\pzero{Q})>(\pone{P}=\pone{Q})))))))\)\par
+
+% Source: corpus.py: fun-is-rel
+\par\bigskip\phantomsection\label{aFunctionIsARelation}
+\noindent\textbf{4.2 A function is a relation}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\Fun{F^{\cdot}}}
+\stHave{1}{1}{(\Rel{F^{\cdot}}\land\forall P((P\owns F^{\cdot})>\forall Q((Q\owns F^{\cdot})>((\pzero{P}=\pzero{Q})>(\pone{P}=\pone{Q})))))}{\hyperref[aSetBeingAFunction]{DA\,4.1}, D$\diamond$E}{0}
+\stHave{10}{2}{\Rel{F^{\cdot}}}{$\land$E}{1}
+\close
+\stHave{11}{3}{\forall F(\Fun{F}>\Rel{F})}{$>$I, $\forall$I}{0-2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall F(\Fun{F}>\Rel{F})\)\par
+
+% Source: Hrbacek--Jech 2.3; corpus.py: DA_THE_VALUE_OF_A_FUNCTION_AT_A_SET
+\par\bigskip\phantomsection\label{theValueOfAFunctionAtASet}
+\noindent\textbf{4.3 The value of a function at a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\Fun{F^{\cdot}}\land(x^{\cdot}\owns\dom{F^{\cdot}}))}
+\stHave{1}{1}{\exists P((P\owns F^{\cdot})\land(\pzero{P}=x^{\cdot}))}{\hyperref[aFunctionIsARelation]{T\,4.2}, \hyperref[theDomainOfARelation]{DA\,3.2}}{0}
+\stHave{10}{2}{\exists y(\pair{x^{\cdot}}{y}\owns F^{\cdot})}{\hyperref[aSetBeingARelation]{DA\,3.1}, \hyperref[aSetBeingAPair]{DA\,2.6}, \hyperref[projectionsOfAPair]{T\,2.9}, $\exists$E, $\exists$I}{1}
+\stHave{11}{3}{\forall y\forall z(((\pair{x^{\cdot}}{y}\owns F^{\cdot})\land(\pair{x^{\cdot}}{z}\owns F^{\cdot}))>(y=z))}{\hyperref[aSetBeingAFunction]{DA\,4.1}, \hyperref[projectionsOfAPair]{T\,2.9}}{0}
+\stHave{100}{4}{\exists^{\times}y(\pair{x^{\cdot}}{y}\owns F^{\cdot})}{D$\exists^{\times}$I}{2,3}
+\close
+\stHave{101}{5}{\forall F\forall x((\Fun{F}\land(x\owns\dom{F}))>\exists^{\times}y(\pair{x}{y}\owns F))}{$>$I, $\forall$I}{0-4}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall F(\Fun{F}>\forall x((x\owns\dom{F})>(\pair{x}{(\mathbf{theValueOf} F\mathbf{At} x)}\owns F)))\)\par
+\noindent\(\displaystyle \forall F(\Fun{F}>\forall x((x\owns\dom{F})>(\pair{x}{(F x)}\owns F)))\)\par
+
+% Source: Hrbacek--Jech 2.3, Definition 3.3
+\par\bigskip\phantomsection\label{aFunctionBeingFromASetToASet}
+\noindent\textbf{4.4 A function being from a set to a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A\forall B((F\mathbf{isAFunctionFrom} A\mathbf{To} B)\diamond(\Fun{F}\land((\dom{F}=A)\land\sub{\ran{F}}{B})))\)\par
+
+% Source: Hrbacek--Jech 2.3: one-to-one functions
+\par\bigskip\phantomsection\label{aFunctionBeingInjective}
+\noindent\textbf{4.5 A function being injective}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F(\Fun{F}>((F\mathbf{isInjective} )\diamond\forall x((x\owns\dom{F})>\)\par
+\noindent\(\displaystyle \forall y((y\owns\dom{F})>((\val{F}{x}=\val{F}{y})>(x=y))))))\)\par
+
+% Source: Hrbacek--Jech 2.3, Definition 3.3(c)
+\par\bigskip\phantomsection\label{aFunctionBeingSurjectiveOntoASet}
+\noindent\textbf{4.6 A function being surjective onto a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall B(\Fun{F}>((F\mathbf{isSurjectiveOnto} B)\diamond(\ran{F}=B)))\)\par
+
+% Source: Hrbacek--Jech 2.3
+\par\bigskip\phantomsection\label{aFunctionBeingABijectionFromASetToASet}
+\noindent\textbf{4.7 A function being a bijection from a set to a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A\forall B((F\mathbf{isABijectionFrom} A\mathbf{To} B)\diamond\)\par
+\noindent\(\displaystyle ((F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A\mathbf{To} B)\land((F\hyperref[aFunctionBeingInjective]{\mathbf{isInjective}} )\land(F\hyperref[aFunctionBeingSurjectiveOntoASet]{\mathbf{isSurjectiveOnto}} B))))\)\par
+
+% Source: Hrbacek--Jech 2.2--2.3: identity relation
+\par\bigskip\phantomsection\label{theIdentityFunctionOnASet}
+\noindent\textbf{4.8 The identity function on a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x((x\owns A^{\cdot})>(\pair{x}{x}\owns\pow{\pow{A^{\cdot}}}))}{\hyperref[boundsForAPair]{T\,2.10}}{}
+\stHave{1}{1}{\exists F\forall P((P\owns F)\diamond\exists x((x\owns A^{\cdot})\land(P=\pair{x}{x})))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{0}
+\stHave{10}{2}{\forall A\exists^{\times}F\forall P((P\owns F)\diamond\exists x((x\owns A)\land(P=\pair{x}{x})))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\forall$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall P((P\owns(\mathbf{theIdentityFunctionOn} A))\diamond\exists x((x\owns A)\land(P=\pair{x}{x})))\)\par
+
+% Source: Hrbacek--Jech 2.3: identity function
+\par\bigskip\phantomsection\label{propertiesOfTheIdentityFunction}
+\noindent\textbf{4.9 Properties of the identity function}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P((P\owns\pid{A^{\cdot}})>\Pair{P})}{\hyperref[theIdentityFunctionOnASet]{DA\,4.8}, \hyperref[aSetBeingAPair]{DA\,2.6}}{}
+\stHave{1}{1}{\Rel{\pid{A^{\cdot}}}}{\hyperref[aSetBeingARelation]{DA\,3.1}}{0}
+\stHave{10}{2}{\forall P\forall Q(((P\owns\pid{A^{\cdot}})\land(Q\owns\pid{A^{\cdot}}))>((\pzero{P}=\pzero{Q})>(\pone{P}=\pone{Q})))}{\hyperref[theIdentityFunctionOnASet]{DA\,4.8}, \hyperref[projectionsOfAPair]{T\,2.9}}{}
+\stHave{11}{3}{\Fun{\pid{A^{\cdot}}}}{\hyperref[aSetBeingAFunction]{DA\,4.1}}{1,2}
+\stHave{100}{4}{(\dom{\pid{A^{\cdot}}}=A^{\cdot})}{\hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theIdentityFunctionOnASet]{DA\,4.8}, \hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[equalityOfSets]{T\,1.6}}{1}
+\stHave{101}{5}{\forall x((x\owns A^{\cdot})>(\val{\pid{A^{\cdot}}}{x}=x))}{\hyperref[theIdentityFunctionOnASet]{DA\,4.8}, \hyperref[theValueOfAFunctionAtASet]{DA\,4.3}, \hyperref[equalityOfPairs]{T\,2.5}}{3,4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall A(\Fun{\pid{A}}\land((\dom{\pid{A}}=A)\land\forall x((x\owns A)>(\val{\pid{A}}{x}=x))))}{$\land$I, $\forall$I}{3,4,5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\Fun{\pid{A}}\land((\dom{\pid{A}}=A)\land\forall x((x\owns A)>(\val{\pid{A}}{x}=x))))\)\par
+
+% Source: Hrbacek--Jech 2.3, Definition 3.3(d)
+\par\bigskip\phantomsection\label{theRestrictionOfAFunctionToASet}
+\noindent\textbf{4.10 The restriction of a function to a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\}=\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\})\land(Y=\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{P\owns F^{\cdot}\mid(\pzero{P}\owns A^{\cdot})\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall F\forall A(\Fun{F}>((\mathbf{theRestrictionOf} F\mathbf{To} A)=\{P\owns F\mid(\pzero{P}\owns A)\}))\)\par
+
+% Source: Hrbacek--Jech 2.3, Lemma 3.2
+\par\bigskip\phantomsection\label{equalityOfFunctions}
+\noindent\textbf{4.11 Equality of functions}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\Fun{F^{\cdot}}\land\Fun{G^{\cdot}})}
+\stHave{1}{1}{((F^{\cdot}=G^{\cdot})>((\dom{F^{\cdot}}=\dom{G^{\cdot}})\land\forall x((x\owns\dom{F^{\cdot}})>(\val{F^{\cdot}}{x}=\val{G^{\cdot}}{x}))))}{\hyperref[equalitySubstitution]{AS}, $=$I, $>$I}{}
+\open
+\stHypo{10}{2}{((\dom{F^{\cdot}}=\dom{G^{\cdot}})\land\forall x((x\owns\dom{F^{\cdot}})>(\val{F^{\cdot}}{x}=\val{G^{\cdot}}{x})))}
+\stHave{11}{3}{\forall P((P\owns F^{\cdot})\diamond(P\owns G^{\cdot}))}{\hyperref[aSetBeingAFunction]{DA\,4.1}, \hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theValueOfAFunctionAtASet]{DA\,4.3}, \hyperref[equalityOfPairs]{T\,2.5}}{0,2}
+\stHave{100}{4}{(F^{\cdot}=G^{\cdot})}{\hyperref[equalityOfSets]{T\,1.6}}{3}
+\close
+\stHave{101}{5}{(((\dom{F^{\cdot}}=\dom{G^{\cdot}})\land\forall x((x\owns\dom{F^{\cdot}})>(\val{F^{\cdot}}{x}=\val{G^{\cdot}}{x})))>(F^{\cdot}=G^{\cdot}))}{$>$I}{2-4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{((F^{\cdot}=G^{\cdot})\diamond((\dom{F^{\cdot}}=\dom{G^{\cdot}})\land\forall x((x\owns\dom{F^{\cdot}})>(\val{F^{\cdot}}{x}=\val{G^{\cdot}}{x}))))}{D$\diamond$I}{1,5}
+\close
+\stHave{111}{7}{\forall F\forall G((\Fun{F}\land\Fun{G})>((F=G)\diamond((\dom{F}=\dom{G})\land\forall x((x\owns\dom{F})>(\val{F}{x}=\val{G}{x})))))}{$>$I, $\forall$I}{0-6}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall F\forall G((\Fun{F}\land\Fun{G})>((F=G)\diamond\)\par
+\noindent\(\displaystyle ((\dom{F}=\dom{G})\land\forall x((x\owns\dom{F})>(\val{F}{x}=\val{G}{x})))))\)\par
+
+% Source: Hrbacek--Jech 2.3: inverse images
+\par\bigskip\phantomsection\label{theInverseImageOfASetUnderAFunction}
+\noindent\textbf{4.12 The inverse image of a set under a function}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\}=\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\})\land(Y=\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{x\owns\dom{F^{\cdot}}\mid(\val{F^{\cdot}}{x}\owns B^{\cdot})\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall F\forall B(\Fun{F}>((\mathbf{theInverseImageOf} B\mathbf{Under} F)=\{x\owns\dom{F}\mid(\val{F}{x}\owns B)\}))\)\par
+
+\clearpage
+\phantomsection\label{stChapter5}\textbf{5 Natural Numbers}
+
+\par\medskip
+
+
+% Source: Hrbacek--Jech 3.1, p. 39; corpus.py: zero definitions
+\par\bigskip\phantomsection\label{theZero}
+\noindent\textbf{5.1 The zero}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\emp=\emp)}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\emp)}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\emp)\land(Y=\emp))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\emp)}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle ((\mathbf{theZero} )=\emp)\)\par
+\noindent\(\displaystyle (0=\emp)\)\par
+
+% Source: Hrbacek--Jech 3.1; corpus.py: DA_THE_SUCCESSOR_OF_A_SET
+\par\bigskip\phantomsection\label{theSuccessorOfASet}
+\noindent\textbf{5.2 The successor of a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{((A^{\cdot}\cup\sing{A^{\cdot}})=(A^{\cdot}\cup\sing{A^{\cdot}}))}{$=$I}{}
+\stHave{1}{1}{\exists X(X=(A^{\cdot}\cup\sing{A^{\cdot}}))}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=(A^{\cdot}\cup\sing{A^{\cdot}}))\land(Y=(A^{\cdot}\cup\sing{A^{\cdot}})))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=(A^{\cdot}\cup\sing{A^{\cdot}}))}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A(\st{A}>((\mathbf{theSuccessorOf} A)=(A\cup\sing{A})))\)\par
+
+% Source: Hrbacek--Jech 3.1, p. 39
+\par\bigskip\phantomsection\label{theOne}
+\noindent\textbf{5.3 The one}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\stSuccessor{0}=\stSuccessor{0})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\stSuccessor{0})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\stSuccessor{0})\land(Y=\stSuccessor{0}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\stSuccessor{0})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle (1=\stSuccessor{0})\)\par
+
+% Source: Hrbacek--Jech 3.1, p. 39
+\par\bigskip\phantomsection\label{theTwo}
+\noindent\textbf{5.4 The two}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\stSuccessor{1}=\stSuccessor{1})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\stSuccessor{1})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\stSuccessor{1})\land(Y=\stSuccessor{1}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\stSuccessor{1})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle (2=\stSuccessor{1})\)\par
+
+% Source: Hrbacek--Jech 3.1, p. 39
+\par\bigskip\phantomsection\label{zeroOneAndTwo}
+\noindent\textbf{5.5 The elements of zero, one, and two}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x((x\owns1)\diamond(x=0))}{\hyperref[theOne]{DA\,5.3}, \hyperref[theSuccessorOfASet]{DA\,5.2}, \hyperref[theZero]{DA\,5.1}, \hyperref[theEmptySet]{DA\,1.13}, \hyperref[theUnionOfTwoSets]{DA\,1.21}, \hyperref[theSingletonOfASet]{DA\,1.18}}{}
+\stHave{1}{1}{(1=\sing{0})}{\hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[equalityOfSets]{T\,1.6}}{0}
+\stHave{10}{2}{\forall x((x\owns2)\diamond((x=0)\lor(x=1)))}{\hyperref[theTwo]{DA\,5.4}, \hyperref[theSuccessorOfASet]{DA\,5.2}, \hyperref[theUnionOfTwoSets]{DA\,1.21}, \hyperref[theSingletonOfASet]{DA\,1.18}}{1}
+\stHave{11}{3}{(2=\bind{0}{1})}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[equalityOfSets]{T\,1.6}}{2}
+\stHave{100}{4}{(0\owns1)}{$=$I, D$\diamond$E}{0}
+\stHave{101}{5}{\backslash(0\owns0)}{\hyperref[theZero]{DA\,5.1}, \hyperref[theEmptySet]{DA\,1.13}}{}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\backslash(0=1)}{\hyperref[equalitySubstitution]{AS}, D$\backslash$I}{4,5}
+\stHave{111}{7}{((1=\sing{0})\land((2=\bind{0}{1})\land\backslash(0=1)))}{$\land$I}{1,3,6}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle ((1=\sing{0})\land((2=\bind{0}{1})\land\backslash(0=1)))\)\par
+
+% Source: Hrbacek--Jech 3.1; corpus.py: DA_A_SET_BEING_INDUCTIVE
+\par\bigskip\phantomsection\label{aSetBeingInductive}
+\noindent\textbf{5.6 A set being inductive}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall A(\st{A}>((A\mathbf{isInductive} )\diamond((0\owns A)\land\forall x((x\owns A)>(\stSuccessor{x}\owns A)))))\)\par
+
+% Source: Hrbacek--Jech 3.1, p. 41; equivalent defined-symbol form of corpus.py: A_INFINITE_SET
+\par\bigskip\phantomsection\label{theAxiomOfInfinity}
+\noindent\textbf{5.7 The axiom of infinity}\quad{\small axiom}\par\smallskip
+\noindent\(\displaystyle \exists I(\st{I}\land\Ind{I})\)\par
+
+% Source: Hrbacek--Jech 3.1, Definition 1.3; corpus.py: natural-number-set definitions
+\par\bigskip\phantomsection\label{theSetOfTheNaturalNumbers}
+\noindent\textbf{5.8 The set of the natural numbers}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\exists I\Ind{I}}{\hyperref[theAxiomOfInfinity]{A\,5.7}, $\exists$E, $\exists$I}{}
+\open
+\stHypo{1}{1}{\Ind{I^{\times}}}
+\stHave{10}{2}{\exists N\forall x((x\owns N)\diamond((x\owns I^{\times})\land\forall J(\Ind{J}>(x\owns J))))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{}
+\stHave{11}{3}{\forall x(\forall J(\Ind{J}>(x\owns J))>(x\owns I^{\times}))}{$\forall$E, $>$E, $>$I, $\forall$I}{1}
+\stHave{100}{4}{\exists N\forall x((x\owns N)\diamond\forall J(\Ind{J}>(x\owns J)))}{$\exists$E, $\land$E, $\land$I, D$\diamond$I, $\exists$I}{2,3}
+\close
+\stHave{101}{5}{\exists N\forall x((x\owns N)\diamond\forall J(\Ind{J}>(x\owns J)))}{$\exists$E}{0,1-4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\exists^{\times}N\forall x((x\owns N)\diamond\forall J(\Ind{J}>(x\owns J)))}{\hyperref[uniquenessByMembership]{TS\,1.7}}{5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall x(\st{x}>((x\owns(\mathbf{theSetOfTheNaturalNumbers} ))\diamond\forall I(\Ind{I}>(x\owns I))))\)\par
+\noindent\(\displaystyle \forall x(\st{x}>((x\owns\mathbb{N})\diamond\forall I(\Ind{I}>(x\owns I))))\)\par
+
+% Source: Hrbacek--Jech 3.1, Definition 1.3
+\par\bigskip\phantomsection\label{aSetBeingANaturalNumber}
+\noindent\textbf{5.9 A set being a natural number}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall n(\st{n}>((n\mathbf{isANaturalNumber} )\diamond(n\owns\nat)))\)\par
+
+% Source: Hrbacek--Jech 3.1, Lemma 1.4
+\par\bigskip\phantomsection\label{naturalNumbersAreInductive}
+\noindent\textbf{5.10 The natural numbers form an inductive set}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall I(\Ind{I}>(0\owns I))}{\hyperref[aSetBeingInductive]{DA\,5.6}, $\land$E}{}
+\stHave{1}{1}{(0\owns\nat)}{\hyperref[theSetOfTheNaturalNumbers]{DA\,5.8}}{0}
+\open
+\stHypo{10}{2}{(n^{\cdot}\owns\nat)}
+\stHave{11}{3}{\forall I(\Ind{I}>(n^{\cdot}\owns I))}{\hyperref[theSetOfTheNaturalNumbers]{DA\,5.8}}{2}
+\stHave{100}{4}{\forall I(\Ind{I}>(\stSuccessor{n^{\cdot}}\owns I))}{\hyperref[aSetBeingInductive]{DA\,5.6}, $\forall$E, $>$E, $>$I, $\forall$I}{3}
+\stHave{101}{5}{(\stSuccessor{n^{\cdot}}\owns\nat)}{\hyperref[theSetOfTheNaturalNumbers]{DA\,5.8}}{4}
+\close
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall n((n\owns\nat)>(\stSuccessor{n}\owns\nat))}{$>$I, $\forall$I}{2-5}
+\stHave{111}{7}{\Ind{\nat}}{\hyperref[aSetBeingInductive]{DA\,5.6}, $\land$I}{1,6}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \Ind{\nat}\)\par
+
+% Source: Hrbacek--Jech 3.1, Lemma 1.4
+\par\bigskip\phantomsection\label{leastInductiveSet}
+\noindent\textbf{5.11 The natural numbers form the least inductive set}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\Ind{I^{\cdot}}}
+\stHave{1}{1}{\forall n((n\owns\nat)>(n\owns I^{\cdot}))}{\hyperref[theSetOfTheNaturalNumbers]{DA\,5.8}, $\forall$E, $>$E, $>$I, $\forall$I}{0}
+\stHave{10}{2}{\sub{\nat}{I^{\cdot}}}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}}{1}
+\close
+\stHave{11}{3}{\forall I(\Ind{I}>\sub{\nat}{I})}{$>$I, $\forall$I}{0-2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall I(\Ind{I}>\sub{\nat}{I})\)\par
+
+% Source: Hrbacek--Jech 3.2, Induction Principle
+\par\bigskip\phantomsection\label{thePrincipleOfInduction}
+\noindent\textbf{5.12 The principle of induction}\quad{\small theorem schema}\par\smallskip
+For each formula $\phi[n]$, with arbitrary parameters. Substitutions avoid variable capture.
+
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\phi[0]\land\forall n((n\owns\nat)>(\phi[n]>\phi[\stSuccessor{n}])))}
+\stHave{1}{1}{(0\owns\{n\owns\nat\mid\phi[n]\})}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}, $\land$E}{0}
+\stHave{10}{2}{\forall n((n\owns\{k\owns\nat\mid\phi[k]\})>(\stSuccessor{n}\owns\{k\owns\nat\mid\phi[k]\}))}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}, $\forall$E, $>$E}{0}
+\stHave{11}{3}{\Ind{\{n\owns\nat\mid\phi[n]\}}}{\hyperref[aSetBeingInductive]{DA\,5.6}, $\land$I}{1,2}
+\stHave{100}{4}{\sub{\nat}{\{n\owns\nat\mid\phi[n]\}}}{\hyperref[leastInductiveSet]{T\,5.11}}{3}
+\stHave{101}{5}{\forall n((n\owns\nat)>\phi[n])}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}}{4}
+\close
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{((\phi[0]\land\forall n((n\owns\nat)>(\phi[n]>\phi[\stSuccessor{n}])))>\forall n((n\owns\nat)>\phi[n]))}{$>$I}{0-5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle ((\phi[0]\land\forall n((n\owns\nat)>(\phi[n]>\phi[\stSuccessor{n}])) )>\forall n((n\owns\nat)>\phi[n]))\)\par
+
+% Source: Hrbacek--Jech 3.1, Definition 1.5; corpus.py: natural-number order
+\par\bigskip\phantomsection\label{aNaturalNumberBeingLessThanANaturalNumber}
+\noindent\textbf{5.13 A natural number being less than a natural number}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall m((m\owns\nat)>\forall n((n\owns\nat)>((m\mathbf{isLessThan} n)\diamond(m\owns n))))\)\par
+\noindent\(\displaystyle \forall m((m\owns\nat)>\forall n((n\owns\nat)>((m<n)\diamond(m\owns n))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{zeroOneAndTwoAreNatural}
+\noindent\textbf{5.14 Zero, one, and two are natural numbers}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(0\owns\nat)}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}}{}
+\stHave{1}{1}{(1\owns\nat)}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}, \hyperref[theOne]{DA\,5.3}}{0}
+\stHave{10}{2}{(2\owns\nat)}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}, \hyperref[theTwo]{DA\,5.4}}{1}
+\stHave{11}{3}{((0\owns\nat)\land((1\owns\nat)\land(2\owns\nat)))}{$\land$I}{0,1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle ((0\owns\nat)\land((1\owns\nat)\land(2\owns\nat)))\)\par
+
+\clearpage
+\phantomsection\label{stChapter6}\textbf{6 Tuples}
+
+\par\medskip
+% Provisional finite-function treatment follows the user's corpus, not nested-pair tuples.
+
+
+
+% Source: corpus.py: DA_THE_TUPLE_OF_TWO_SETS, DA_N_THE_TUPLE_OF_TWO_SETS, equivalent equality form; Hrbacek--Jech 3.5
+\par\bigskip\phantomsection\label{theTupleOfTwoSets}
+\noindent\textbf{6.1 The tuple of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}}=\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}})\land(Y=\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\bind{\pair{0}{A^{\cdot}}}{\pair{1}{B^{\cdot}}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((\mathbf{theTupleOf} A\mathbf{And} B)=\bind{\pair{0}{A}}{\pair{1}{B}})\)\par
+\noindent\(\displaystyle \forall A\forall B([A,B]=\bind{\pair{0}{A}}{\pair{1}{B}})\)\par
+
+% Source: corpus.py: tuple constructor; Hrbacek--Jech 3.5: finite sequences
+\par\bigskip\phantomsection\label{aBinaryTupleIsAFunction}
+\noindent\textbf{6.2 A tuple of two sets is a function on two}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P((P\owns[A^{\cdot},B^{\cdot}])\diamond((P=\pair{0}{A^{\cdot}})\lor(P=\pair{1}{B^{\cdot}})))}{\hyperref[theTupleOfTwoSets]{DA\,6.1}, \hyperref[theBindingOfTwoSets]{DA\,1.17}}{}
+\stHave{1}{1}{\Rel{[A^{\cdot},B^{\cdot}]}}{\hyperref[aSetBeingAPair]{DA\,2.6}, \hyperref[aSetBeingARelation]{DA\,3.1}, $\lor$E}{0}
+\stHave{10}{2}{\forall P\forall Q(((P\owns[A^{\cdot},B^{\cdot}])\land(Q\owns[A^{\cdot},B^{\cdot}]))>((\pzero{P}=\pzero{Q})>(\pone{P}=\pone{Q})))}{\hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[zeroOneAndTwo]{T\,5.5}, $\lor$E}{0}
+\stHave{11}{3}{\Fun{[A^{\cdot},B^{\cdot}]}}{\hyperref[aSetBeingAFunction]{DA\,4.1}}{1,2}
+\stHave{100}{4}{\forall x((x\owns\dom{[A^{\cdot},B^{\cdot}]})\diamond((x=0)\lor(x=1)))}{\hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[projectionsOfAPair]{T\,2.9}}{0,1}
+\stHave{101}{5}{(\dom{[A^{\cdot},B^{\cdot}]}=2)}{\hyperref[zeroOneAndTwo]{T\,5.5}, \hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[equalityOfSets]{T\,1.6}}{4}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall A\forall B(\Fun{[A,B]}\land(\dom{[A,B]}=2))}{$\land$I, $\forall$I}{3,5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B(\Fun{[A,B]}\land(\dom{[A,B]}=2))\)\par
+
+% Source: Hrbacek--Jech 3.5; corpus.py tuple convention
+\par\bigskip\phantomsection\label{theComponentsOfABinaryTuple}
+\noindent\textbf{6.3 The components of a tuple of two sets}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\Fun{[A^{\cdot},B^{\cdot}]}}{\hyperref[aBinaryTupleIsAFunction]{T\,6.2}, $\land$E}{}
+\stHave{1}{1}{((\pair{0}{A^{\cdot}}\owns[A^{\cdot},B^{\cdot}])\land(\pair{1}{B^{\cdot}}\owns[A^{\cdot},B^{\cdot}]))}{\hyperref[theTupleOfTwoSets]{DA\,6.1}, \hyperref[theBindingOfTwoSets]{DA\,1.17}}{}
+\stHave{10}{2}{((\val{[A^{\cdot},B^{\cdot}]}{0}=A^{\cdot})\land(\val{[A^{\cdot},B^{\cdot}]}{1}=B^{\cdot}))}{\hyperref[theValueOfAFunctionAtASet]{DA\,4.3}, \hyperref[aSetBeingAFunction]{DA\,4.1}, \hyperref[projectionsOfAPair]{T\,2.9}}{0,1}
+\stHave{11}{3}{\forall A\forall B((\val{[A,B]}{0}=A)\land(\val{[A,B]}{1}=B))}{$\forall$I}{2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((\val{[A,B]}{0}=A)\land(\val{[A,B]}{1}=B))\)\par
+
+% Source: Hrbacek--Jech 3.5: finite sequences; corpus.py finite-function tuple convention
+\par\bigskip\phantomsection\label{aSetBeingATuple}
+\noindent\textbf{6.4 A set being a tuple}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall T(\st{T}>((T\mathbf{isATuple} )\diamond(\Fun{T}\land\exists n((n\owns\nat)\land(\dom{T}=n)))))\)\par
+
+% Source: Hrbacek--Jech 3.5: length of a finite sequence
+\par\bigskip\phantomsection\label{theLengthOfATuple}
+\noindent\textbf{6.5 The length of a tuple}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\dom{T^{\cdot}}=\dom{T^{\cdot}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\dom{T^{\cdot}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\dom{T^{\cdot}})\land(Y=\dom{T^{\cdot}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\dom{T^{\cdot}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall T((T\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )>((\mathbf{theLengthOf} T)=\dom{T}))\)\par
+
+% Source: Hrbacek--Jech 3.5; corpus.py: component notation, now explicitly function evaluation
+\par\bigskip\phantomsection\label{theComponentOfATupleAtANaturalNumber}
+\noindent\textbf{6.6 The component of a tuple at a natural number}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{T^{\cdot}}{i^{\cdot}}=\val{T^{\cdot}}{i^{\cdot}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{T^{\cdot}}{i^{\cdot}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{T^{\cdot}}{i^{\cdot}})\land(Y=\val{T^{\cdot}}{i^{\cdot}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{T^{\cdot}}{i^{\cdot}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall T\forall i(((T\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(i\owns\dom{T}))>((\mathbf{theComponentOf} T\mathbf{At} i)=\val{T}{i}))\)\par
+\noindent\(\displaystyle \forall T\forall i(((T\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(i\owns\dom{T}))>((T i)=\val{T}{i}))\)\par
+
+% Source: Hrbacek--Jech 3.5: sequence of length zero
+\par\bigskip\phantomsection\label{theEmptyTuple}
+\noindent\textbf{6.7 The empty tuple}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\emp=\emp)}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\emp)}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\emp)\land(Y=\emp))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\emp)}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle ((\mathbf{theEmptyTuple} )=\emp)\)\par
+
+% Source: Hrbacek--Jech 3.5
+\par\bigskip\phantomsection\label{theEmptySetIsATuple}
+\noindent\textbf{6.8 The empty set is a tuple of length zero}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\Rel{\emp}}{\hyperref[theEmptySet]{DA\,1.13}, \hyperref[aSetBeingARelation]{DA\,3.1}}{}
+\stHave{1}{1}{\Fun{\emp}}{\hyperref[theEmptySet]{DA\,1.13}, \hyperref[aSetBeingAFunction]{DA\,4.1}}{0}
+\stHave{10}{2}{(\dom{\emp}=0)}{\hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theEmptySet]{DA\,1.13}, \hyperref[theZero]{DA\,5.1}, \hyperref[equalityOfSets]{T\,1.6}}{0}
+\stHave{11}{3}{(0\owns\nat)}{\hyperref[naturalNumbersAreInductive]{T\,5.10}, \hyperref[aSetBeingInductive]{DA\,5.6}}{}
+\stHave{100}{4}{(\emp\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )}{\hyperref[aSetBeingATuple]{DA\,6.4}, $\exists$I}{1,2,3}
+\stHave{101}{5}{((\emp\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} \emp)=0))}{\hyperref[theLengthOfATuple]{DA\,6.5}, $\land$I}{2,4}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle ((\emp\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} \emp)=0))\)\par
+
+\clearpage
+\phantomsection\label{stChapter7}\textbf{7 Relation (continued)}
+
+\par\medskip
+
+% Source: Hrbacek--Jech 2.2: Cartesian product and 2.1 Exercise 1.1; chapter placement is provisional
+\par\bigskip\phantomsection\label{theCartesianProductOfTwoSets}
+\noindent\textbf{7.1 The Cartesian product of two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x\forall y(((x\owns A^{\cdot})\land(y\owns B^{\cdot}))>(\pair{x}{y}\owns\pow{\pow{A^{\cdot}\cup B^{\cdot}}}))}{\hyperref[boundsForAPair]{T\,2.10}, \hyperref[theUnionOfTwoSets]{DA\,1.21}}{}
+\stHave{1}{1}{\exists C\forall P((P\owns C)\diamond\exists x\exists y(((x\owns A^{\cdot})\land(y\owns B^{\cdot}))\land(P=\pair{x}{y})))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{0}
+\stHave{10}{2}{\forall A\forall B\exists^{\times}C\forall P((P\owns C)\diamond\exists x\exists y(((x\owns A)\land(y\owns B))\land(P=\pair{x}{y})))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\forall$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall P((P\owns(\mathbf{theCartesianProductOf} A\mathbf{And} B))\diamond\exists x\exists y(((x\owns A)\land(y\owns B))\land(P=\pair{x}{y})))\)\par
+\noindent\(\displaystyle \forall A\forall B\forall P((P\owns(A\times B))\diamond\exists x\exists y(((x\owns A)\land(y\owns B))\land(P=\pair{x}{y})))\)\par
+
+% Source: Hrbacek--Jech 2.2
+\par\bigskip\phantomsection\label{membershipOfACartesianProduct}
+\noindent\textbf{7.2 Membership of a Cartesian product}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x\forall y((\pair{x}{y}\owns\prodset{A^{\cdot}}{B^{\cdot}})\diamond\exists a\exists b(((a\owns A^{\cdot})\land(b\owns B^{\cdot}))\land(\pair{x}{y}=\pair{a}{b})))}{\hyperref[theCartesianProductOfTwoSets]{DA\,7.1}}{}
+\stHave{1}{1}{\forall x\forall y((\pair{x}{y}\owns\prodset{A^{\cdot}}{B^{\cdot}})\diamond((x\owns A^{\cdot})\land(y\owns B^{\cdot})))}{\hyperref[equalityOfPairs]{T\,2.5}, $\exists$E, $\exists$I}{0}
+\stHave{10}{2}{\forall A\forall B\forall x\forall y((\pair{x}{y}\owns\prodset{A}{B})\diamond((x\owns A)\land(y\owns B)))}{$\forall$I}{1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall x\forall y((\pair{x}{y}\owns\prodset{A}{B})\diamond((x\owns A)\land(y\owns B)))\)\par
+
+% Source: Hrbacek--Jech 2.2
+\par\bigskip\phantomsection\label{aCartesianProductIsARelation}
+\noindent\textbf{7.3 A Cartesian product is a relation}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P((P\owns\prodset{A^{\cdot}}{B^{\cdot}})>\Pair{P})}{\hyperref[theCartesianProductOfTwoSets]{DA\,7.1}, \hyperref[aSetBeingAPair]{DA\,2.6}, $\exists$E}{}
+\stHave{1}{1}{\forall A\forall B\Rel{\prodset{A}{B}}}{\hyperref[aSetBeingARelation]{DA\,3.1}, $\forall$I}{0}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\Rel{\prodset{A}{B}}\)\par
+
+% Source: Hrbacek--Jech 2.2
+\par\bigskip\phantomsection\label{aCartesianProductWithTheEmptySet}
+\noindent\textbf{7.4 A Cartesian product with the empty set}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall P\backslash(P\owns\prodset{A^{\cdot}}{\emp})}{\hyperref[theCartesianProductOfTwoSets]{DA\,7.1}, \hyperref[theEmptySet]{DA\,1.13}, $\exists$E, D$\backslash$I}{}
+\stHave{1}{1}{\forall P\backslash(P\owns\prodset{\emp}{A^{\cdot}})}{\hyperref[theCartesianProductOfTwoSets]{DA\,7.1}, \hyperref[theEmptySet]{DA\,1.13}, $\exists$E, D$\backslash$I}{}
+\stHave{10}{2}{\forall A((\prodset{A}{\emp}=\emp)\land(\prodset{\emp}{A}=\emp))}{\hyperref[emptinessAndMembership]{T\,1.29}, $\land$I, $\forall$I}{0,1}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A((\prodset{A}{\emp}=\emp)\land(\prodset{\emp}{A}=\emp))\)\par
+
+% Source: Hrbacek--Jech 2.3, function sets; 3.5, finite sequences
+\par\bigskip\phantomsection\label{theSetOfTuplesOfAGivenLengthInASet}
+\noindent\textbf{7.5 The set of tuples of a given length in a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall T((\Fun{T}\land((\dom{T}=n^{\cdot})\land\sub{\ran{T}}{A^{\cdot}}))>(T\owns\pow{\prodset{n^{\cdot}}{A^{\cdot}}}))}{\hyperref[aSetBeingAFunction]{DA\,4.1}, \hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theRangeOfARelation]{DA\,3.3}, \hyperref[thePowerSetOfASet]{DA\,1.25}, \hyperref[membershipOfACartesianProduct]{T\,7.2}}{}
+\stHave{1}{1}{\exists S\forall T((T\owns S)\diamond(\Fun{T}\land((\dom{T}=n^{\cdot})\land\sub{\ran{T}}{A^{\cdot}})))}{\hyperref[theAxiomSchemaOfSpecification]{AS\,1.14}}{0}
+\stHave{10}{2}{\forall n\forall A\exists^{\times}S\forall T((T\owns S)\diamond(\Fun{T}\land((\dom{T}=n)\land\sub{\ran{T}}{A})))}{\hyperref[uniquenessByMembership]{TS\,1.7}, $\forall$I}{1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall A\forall T((T\owns(\mathbf{theSetOfTuplesOfLength} n\mathbf{In} A))\diamond(\Fun{T}\land((\dom{T}=n)\land\sub{\ran{T}}{A}))))\)\par
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall A\forall T((T\owns A^n)\diamond(\Fun{T}\land((\dom{T}=n)\land\sub{\ran{T}}{A}))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{membershipOfATuplePower}
+\noindent\textbf{7.6 Membership of a tuple power}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall n((n\owns\nat)>\forall A\forall T((T\owns\tpow{A}{n})\diamond(\Fun{T}\land((\dom{T}=n)\land\sub{\ran{T}}{A}))))}{\hyperref[theSetOfTuplesOfAGivenLengthInASet]{DA\,7.5}}{}
+\stHave{1}{1}{\forall n((n\owns\nat)>\forall A\forall T((T\owns\tpow{A}{n})\diamond((T\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} T)=n)\land\sub{\ran{T}}{A}))))}{\hyperref[aSetBeingATuple]{DA\,6.4}, \hyperref[theLengthOfATuple]{DA\,6.5}}{0}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall A\forall T((T\owns\tpow{A}{n})\diamond((T\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} T)=n)\land\sub{\ran{T}}{A}))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aBinaryTupleInATuplePower}
+\noindent\textbf{7.7 A binary tuple in a tuple power}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall x\forall y(\Fun{[x,y]}\land(\dom{[x,y]}=2))}{\hyperref[aBinaryTupleIsAFunction]{T\,6.2}}{}
+\stHave{1}{1}{\forall x\forall y(\ran{[x,y]}=\bind{x}{y})}{\hyperref[theTupleOfTwoSets]{DA\,6.1}, \hyperref[theRangeOfARelation]{DA\,3.3}, \hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[equalityOfSets]{T\,1.6}}{}
+\stHave{10}{2}{\forall A\forall x\forall y(([x,y]\owns\tpow{A}{2})\diamond((x\owns A)\land(y\owns A)))}{\hyperref[zeroOneAndTwoAreNatural]{T\,5.14}, \hyperref[theSetOfTuplesOfAGivenLengthInASet]{DA\,7.5}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[theBindingOfTwoSets]{DA\,1.17}}{0,1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall A\forall x\forall y(([x,y]\owns\tpow{A}{2})\diamond((x\owns A)\land(y\owns A)))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theZerothTuplePower}
+\noindent\textbf{7.8 The zeroth tuple power}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall T((T\owns\tpow{A^{\cdot}}{0})\diamond(\Fun{T}\land((\dom{T}=0)\land\sub{\ran{T}}{A^{\cdot}})))}{\hyperref[zeroOneAndTwoAreNatural]{T\,5.14}, \hyperref[theSetOfTuplesOfAGivenLengthInASet]{DA\,7.5}}{}
+\stHave{1}{1}{\forall T((\Fun{T}\land(\dom{T}=0))>(T=\emp))}{\hyperref[aSetBeingAFunction]{DA\,4.1}, \hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theZero]{DA\,5.1}, \hyperref[theEmptySet]{DA\,1.13}, \hyperref[emptinessAndMembership]{T\,1.29}}{}
+\stHave{10}{2}{\forall T((T\owns\tpow{A^{\cdot}}{0})\diamond(T=\emp))}{\hyperref[theEmptySetIsATuple]{T\,6.8}, \hyperref[theRangeOfARelation]{DA\,3.3}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}}{0,1}
+\stHave{11}{3}{\forall A(\tpow{A}{0}=\sing{\emp})}{\hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[equalityOfSets]{T\,1.6}, $\forall$I}{2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall A(\tpow{A}{0}=\sing{\emp})\)\par
+
+% Source: Tuple-based extension of Hrbacek--Jech 2.2; arity is a parameter
+\par\bigskip\phantomsection\label{aSetBeingAnNAryRelation}
+\noindent\textbf{7.9 A set being an n-ary relation on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall R\forall A((R\mathbf{isAnNAryRelationOfArity} n\mathbf{On} A)\diamond\sub{R}{\tpow{A}{n}}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{nullaryRelations}
+\noindent\textbf{7.10 Nullary relations on a set}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall A\forall R(\NRel{R}{0}{A}\diamond\sub{R}{\sing{\emp}})}{\hyperref[aSetBeingAnNAryRelation]{DA\,7.9}, \hyperref[zeroOneAndTwoAreNatural]{T\,5.14}, \hyperref[theZerothTuplePower]{T\,7.8}}{}
+\stHave{1}{1}{\forall R(\sub{R}{\sing{\emp}}\diamond((R=\emp)\lor(R=\sing{\emp})))}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[theSingletonOfASet]{DA\,1.18}, \hyperref[equalityOfSets]{T\,1.6}, \hyperref[emptinessAndMembership]{T\,1.29}, D$\backslash$E, $\lor$E}{}
+\stHave{10}{2}{\forall A\forall R(\NRel{R}{0}{A}\diamond((R=\emp)\lor(R=\sing{\emp})))}{D$\diamond$E, D$\diamond$I}{0,1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall A\forall R(\NRel{R}{0}{A}\diamond((R=\emp)\lor(R=\sing{\emp})))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theTupleRelationAssociatedWithARelation}
+\noindent\textbf{7.11 The tuple relation associated with a relation}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\}=\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\})\land(Y=\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{T\owns\tpow{A^{\cdot}}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R^{\cdot})\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall R\forall A(\On{R}{A}>((\mathbf{theTupleRelationAssociatedWith} R\mathbf{On} A)=\{T\owns\tpow{A}{2}\mid(\pair{\val{T}{0}}{\val{T}{1}}\owns R)\}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{membershipOfTheAssociatedTupleRelation}
+\noindent\textbf{7.12 Membership of the associated tuple relation}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall R\forall A(\On{R}{A}>\forall T((T\owns(\hyperref[theTupleRelationAssociatedWithARelation]{\mathbf{theTupleRelationAssociatedWith}} R\mathbf{On} A))\diamond((T\owns\tpow{A}{2})\land(\pair{\val{T}{0}}{\val{T}{1}}\owns R))))}{\hyperref[theTupleRelationAssociatedWithARelation]{DA\,7.11}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}}{}
+\stHave{1}{1}{\forall R\forall A(\On{R}{A}>\forall x((x\owns A)>\forall y((y\owns A)>(([x,y]\owns(\hyperref[theTupleRelationAssociatedWithARelation]{\mathbf{theTupleRelationAssociatedWith}} R\mathbf{On} A))\diamond(\pair{x}{y}\owns R)))))}{\hyperref[aBinaryTupleInATuplePower]{T\,7.7}, \hyperref[theComponentsOfABinaryTuple]{T\,6.3}}{0}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall R\forall A(\On{R}{A}>\forall x((x\owns A)>\forall y((y\owns A)>(([x,y]\owns(\hyperref[theTupleRelationAssociatedWithARelation]{\mathbf{theTupleRelationAssociatedWith}} R\mathbf{On} A))\diamond(\pair{x}{y}\owns R)))))\)\par
+
+\clearpage
+\phantomsection\label{stChapter8}\textbf{8 Function (continued)}
+
+\par\medskip
+
+% Source: Hrbacek--Jech 2.3: function sets
+\par\bigskip\phantomsection\label{theSetOfFunctionsFromASetToASet}
+\noindent\textbf{8.1 The set of functions from a set to a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\}=\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\})\land(Y=\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\{F\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})\})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B((\mathbf{theSetOfFunctionsFrom} A\mathbf{To} B)=\{F\owns\pow{\prodset{A}{B}}\mid(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A\mathbf{To} B)\})\)\par
+
+% Source: Hrbacek--Jech 2.3
+\par\bigskip\phantomsection\label{allFunctionsFromAToBAreInTheFunctionSet}
+\noindent\textbf{8.2 Membership of the set of functions}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(F^{\cdot}\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})}
+\stHave{1}{1}{\forall P((P\owns F^{\cdot})>(P\owns\prodset{A^{\cdot}}{B^{\cdot}}))}{\hyperref[aFunctionBeingFromASetToASet]{DA\,4.4}, \hyperref[aSetBeingARelation]{DA\,3.1}, \hyperref[theDomainOfARelation]{DA\,3.2}, \hyperref[theRangeOfARelation]{DA\,3.3}, \hyperref[membershipOfACartesianProduct]{T\,7.2}}{0}
+\stHave{10}{2}{(F^{\cdot}\owns\pow{\prodset{A^{\cdot}}{B^{\cdot}}})}{\hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[thePowerSetOfASet]{DA\,1.25}}{1}
+\stHave{11}{3}{(F^{\cdot}\owns(\hyperref[theSetOfFunctionsFromASetToASet]{\mathbf{theSetOfFunctionsFrom}} A^{\cdot}\mathbf{To} B^{\cdot}))}{\hyperref[theSetOfFunctionsFromASetToASet]{DA\,8.1}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}}{0,2}
+\close
+\stHave{100}{4}{((F^{\cdot}\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot})>(F^{\cdot}\owns(\hyperref[theSetOfFunctionsFromASetToASet]{\mathbf{theSetOfFunctionsFrom}} A^{\cdot}\mathbf{To} B^{\cdot})))}{$>$I}{0-3}
+\stHave{101}{5}{((F^{\cdot}\owns(\hyperref[theSetOfFunctionsFromASetToASet]{\mathbf{theSetOfFunctionsFrom}} A^{\cdot}\mathbf{To} B^{\cdot}))>(F^{\cdot}\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A^{\cdot}\mathbf{To} B^{\cdot}))}{\hyperref[theSetOfFunctionsFromASetToASet]{DA\,8.1}, \hyperref[theSpecifiedSubsetOfASet]{DA\,1.15}, $\land$E}{}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{\forall A\forall B\forall F((F\owns(\hyperref[theSetOfFunctionsFromASetToASet]{\mathbf{theSetOfFunctionsFrom}} A\mathbf{To} B))\diamond(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A\mathbf{To} B))}{D$\diamond$I, $\forall$I}{4,5}
+\end{fitchproof*}
+\endgroup
+
+\noindent\(\displaystyle \forall A\forall B\forall F((F\owns(\hyperref[theSetOfFunctionsFromASetToASet]{\mathbf{theSetOfFunctionsFrom}} A\mathbf{To} B))\diamond(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} A\mathbf{To} B))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aFunctionBeingAnNAryFunction}
+\noindent\textbf{8.3 A function being an n-ary function}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall F\forall A\forall B((F\mathbf{isAnNAryFunctionOfArity} n\mathbf{From} A\mathbf{To} B)\diamond(F\hyperref[aFunctionBeingFromASetToASet]{\mathbf{isAFunctionFrom}} \tpow{A}{n}\mathbf{To} B)))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theValueOfABinaryFunctionAtTwoSets}
+\noindent\textbf{8.4 The value of a binary function at two sets}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]}=\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]})\land(Y=\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{F^{\cdot}}{[x^{\cdot},y^{\cdot}]})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall F\forall A\forall B(\NFun{F}{2}{A}{B}>\forall x((x\owns A)>\forall y((y\owns A)>((\mathbf{theBinaryValueOf} F\mathbf{At} x\mathbf{And} y)=\val{F}{[x,y]}))))\)\par
+\noindent\(\displaystyle \forall F\forall A\forall B(\NFun{F}{2}{A}{B}>\forall x((x\owns A)>\forall y((y\owns A)>((x F y)=\val{F}{[x,y]}))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aFunctionBeingAnNAryOperation}
+\noindent\textbf{8.5 A function being an n-ary operation on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall F\forall A((F\mathbf{isAnNAryOperationOfArity} n\mathbf{On} A)\diamond\NFun{F}{n}{A}{A}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aFunctionBeingABinaryOperation}
+\noindent\textbf{8.6 A function being a binary operation on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A((F\mathbf{isABinaryOperationOn} A)\diamond\NFun{F}{2}{A}{A})\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aFunctionBeingAUnaryOperation}
+\noindent\textbf{8.7 A function being a unary operation on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A((F\mathbf{isAUnaryOperationOn} A)\diamond\NFun{F}{1}{A}{A})\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{valuesOfAnNAryFunction}
+\noindent\textbf{8.8 Values of an n-ary function}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{((n^{\cdot}\owns\nat)\land\NFun{F^{\cdot}}{n^{\cdot}}{A^{\cdot}}{B^{\cdot}})}
+\stHave{1}{1}{(\Fun{F^{\cdot}}\land((\dom{F^{\cdot}}=\tpow{A^{\cdot}}{n^{\cdot}})\land\sub{\ran{F^{\cdot}}}{B^{\cdot}}))}{\hyperref[aFunctionBeingAnNAryFunction]{DA\,8.3}, \hyperref[aFunctionBeingFromASetToASet]{DA\,4.4}}{0}
+\stHave{10}{2}{\forall T((T\owns\tpow{A^{\cdot}}{n^{\cdot}})>(\pair{T}{\val{F^{\cdot}}{T}}\owns F^{\cdot}))}{\hyperref[theValueOfAFunctionAtASet]{DA\,4.3}}{1}
+\stHave{11}{3}{\forall T((T\owns\tpow{A^{\cdot}}{n^{\cdot}})>(\val{F^{\cdot}}{T}\owns B^{\cdot}))}{\hyperref[theRangeOfARelation]{DA\,3.3}, \hyperref[projectionsOfAPair]{T\,2.9}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}}{1,2}
+\close
+\stHave{100}{4}{\forall n((n\owns\nat)>\forall F\forall A\forall B(\NFun{F}{n}{A}{B}>\forall T((T\owns\tpow{A}{n})>(\val{F}{T}\owns B))))}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall n((n\owns\nat)>\forall F\forall A\forall B(\NFun{F}{n}{A}{B}>\forall T((T\owns\tpow{A}{n})>(\val{F}{T}\owns B))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{closureOfABinaryOperation}
+\noindent\textbf{8.9 Closure of a binary operation}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall F\forall A(\BinOp{F}{A}>\NFun{F}{2}{A}{A})}{\hyperref[aFunctionBeingABinaryOperation]{DA\,8.6}}{}
+\stHave{1}{1}{\forall F\forall A(\BinOp{F}{A}>\forall x((x\owns A)>\forall y((y\owns A)>(\val{F}{[x,y]}\owns A))))}{\hyperref[valuesOfAnNAryFunction]{T\,8.8}, \hyperref[zeroOneAndTwoAreNatural]{T\,5.14}, \hyperref[aBinaryTupleInATuplePower]{T\,7.7}}{0}
+\stHave{10}{2}{\forall F\forall A(\BinOp{F}{A}>\forall x((x\owns A)>\forall y((y\owns A)>(\bv{F}{x}{y}\owns A))))}{\hyperref[theValueOfABinaryFunctionAtTwoSets]{DA\,8.4}}{1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall F\forall A(\BinOp{F}{A}>\forall x((x\owns A)>\forall y((y\owns A)>(\bv{F}{x}{y}\owns A))))\)\par
+
+\clearpage\phantomsection\label{algebra}\section{Algebra}
+\phantomsection\label{basicAlgebra}\subsection{Basic Algebra}
+\phantomsection\label{inPreparation2}\textbf{1 Magmas, Semigroups, and Monoids}
+
+% Source: corpus.py: algebra structure convention, with tuple and operation conditions explicit
+\par\bigskip\phantomsection\label{anObjectBeingAMagma}
+\noindent\textbf{1.1 An object being a magma}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall M((M\mathbf{isAMagma} )\diamond((M\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} M)=2)\land\BinOp{\val{M}{1}}{\val{M}{0}})))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theUnderlyingSetOfAMagma}
+\noindent\textbf{1.2 The underlying set of a magma}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{M^{\cdot}}{0}=\val{M^{\cdot}}{0})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{M^{\cdot}}{0})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{M^{\cdot}}{0})\land(Y=\val{M^{\cdot}}{0}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{M^{\cdot}}{0})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall M(\Magma{M}>((\mathbf{theUnderlyingSetOf} M)=\val{M}{0}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theBinaryOperationOfAMagma}
+\noindent\textbf{1.3 The binary operation of a magma}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{M^{\cdot}}{1}=\val{M^{\cdot}}{1})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{M^{\cdot}}{1})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{M^{\cdot}}{1})\land(Y=\val{M^{\cdot}}{1}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{M^{\cdot}}{1})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall M(\Magma{M}>((\mathbf{theBinaryOperationOf} M)=\val{M}{1}))\)\par
+
+% Source: corpus.py: DA_A_MAGMA_BEING_ASSOCIATIVE, operation-on-carrier form
+\par\bigskip\phantomsection\label{aBinaryOperationBeingAssociativeOnASet}
+\noindent\textbf{1.4 A binary operation being associative on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A(\BinOp{F}{A}>((F\mathbf{isAssociativeOn} A)\diamond\forall x((x\owns A)>\forall y((y\owns A)>\forall z((z\owns A)>(\bv{F}{\bv{F}{x}{y}}{z}=\bv{F}{x}{\bv{F}{y}{z}}))))))\)\par
+
+% Source: corpus.py: DA_A_SET_BEING_AN_IDENTITY_ELEMENT_OF_A_MAGMA, expanded structure
+\par\bigskip\phantomsection\label{anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet}
+\noindent\textbf{1.5 An object being an identity element}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A\forall e((e\mathbf{isAnIdentityElementWithRespectTo} F\mathbf{Of} A)\diamond((e\owns A)\land\forall x((x\owns A)>((\bv{F}{e}{x}=x)\land(\bv{F}{x}{e}=x)))))\)\par
+
+% Source: corpus.py: inverse-element convention, with membership conditions explicit
+\par\bigskip\phantomsection\label{anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet}
+\noindent\textbf{1.6 An object being an inverse element}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall F\forall A\forall e\forall a\forall b((b\mathbf{isAnInverseElementOf} a\mathbf{WithRespectTo} e\mathbf{Under} F\mathbf{Of} A)\diamond((b\owns A)\land((a\owns A)\land((e\owns A)\land((\bv{F}{b}{a}=e)\land(\bv{F}{a}{b}=e))))))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{uniquenessOfAnIdentityElement}
+\noindent\textbf{1.7 Uniqueness of an identity element}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\Id{e^{\cdot}}{F^{\cdot}}{A^{\cdot}}\land\Id{f^{\cdot}}{F^{\cdot}}{A^{\cdot}})}
+\stHave{1}{1}{((e^{\cdot}\owns A^{\cdot})\land(f^{\cdot}\owns A^{\cdot}))}{\hyperref[anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.5}, $\land$E}{0}
+\stHave{10}{2}{(\bv{F^{\cdot}}{e^{\cdot}}{f^{\cdot}}=f^{\cdot})}{\hyperref[anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.5}, $\forall$E, $>$E}{0,1}
+\stHave{11}{3}{(\bv{F^{\cdot}}{e^{\cdot}}{f^{\cdot}}=e^{\cdot})}{\hyperref[anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.5}, $\forall$E, $>$E}{0,1}
+\stHave{100}{4}{(e^{\cdot}=f^{\cdot})}{\hyperref[equalitySubstitution]{AS}}{2,3}
+\close
+\stHave{101}{5}{\forall F\forall A\forall e\forall f((\Id{e}{F}{A}\land\Id{f}{F}{A})>(e=f))}{$>$I, $\forall$I}{0-4}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall F\forall A\forall e\forall f((\Id{e}{F}{A}\land\Id{f}{F}{A})>(e=f))\)\par
+
+% Source: corpus.py: DA_BEING_A_SEMIGROUP
+\par\bigskip\phantomsection\label{aMagmaBeingASemigroup}
+\noindent\textbf{1.8 A magma being a semigroup}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall M((M\mathbf{isASemigroup} )\diamond(\Magma{M}\land(\operation{M}\hyperref[aBinaryOperationBeingAssociativeOnASet]{\mathbf{isAssociativeOn}} \carrier{M})))\)\par
+
+% Source: corpus.py: DA_BEING_A_MONOID
+\par\bigskip\phantomsection\label{aMagmaBeingAMonoid}
+\noindent\textbf{1.9 A magma being a monoid}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall M((M\mathbf{isAMonoid} )\diamond((M\hyperref[aMagmaBeingASemigroup]{\mathbf{isASemigroup}} )\land\exists e\Id{e}{\operation{M}}{\carrier{M}}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theIdentityElementOfAMonoid}
+\noindent\textbf{1.10 The identity element of a monoid}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall M(\Monoid{M}>\exists e\Id{e}{\operation{M}}{\carrier{M}})}{\hyperref[aMagmaBeingAMonoid]{DA\,BA\,1.9}}{}
+\stHave{1}{1}{\forall M\forall e\forall f((\Id{e}{\operation{M}}{\carrier{M}}\land\Id{f}{\operation{M}}{\carrier{M}})>(e=f))}{\hyperref[uniquenessOfAnIdentityElement]{T\,BA\,1.7}}{}
+\stHave{10}{2}{\forall M(\Monoid{M}>\exists^{\times}e\Id{e}{\operation{M}}{\carrier{M}})}{D$\exists^{\times}$I}{0,1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall M(\Monoid{M}>\Id{(\mathbf{theIdentityElementOf} M)}{\operation{M}}{\carrier{M}})\)\par
+
+\clearpage\phantomsection\label{groupTheory}\subsection{Group Theory}
+\phantomsection\label{groups}\textbf{1 Groups}
+
+% Source: corpus.py: DA_BEING_A_GROUP, expanded named structure
+\par\bigskip\phantomsection\label{aMagmaBeingAGroup}
+\noindent\textbf{1.1 A magma being a group}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall G((G\mathbf{isAGroup} )\diamond(\Monoid{G}\land\forall a((a\owns\carrier{G})>\exists b\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}})))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{aGroupIsAMagma}
+\noindent\textbf{1.2 A group is a magma}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{\Group{G^{\cdot}}}
+\stHave{1}{1}{\Monoid{G^{\cdot}}}{\hyperref[aMagmaBeingAGroup]{DA\,GT\,1.1}, $\land$E}{0}
+\stHave{10}{2}{(G^{\cdot}\hyperref[aMagmaBeingASemigroup]{\mathbf{isASemigroup}} )}{\hyperref[aMagmaBeingAMonoid]{DA\,BA\,1.9}, $\land$E}{1}
+\stHave{11}{3}{\Magma{G^{\cdot}}}{\hyperref[aMagmaBeingASemigroup]{DA\,BA\,1.8}, $\land$E}{2}
+\close
+\stHave{100}{4}{\forall G(\Group{G}>\Magma{G})}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall G(\Group{G}>\Magma{G})\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{uniquenessOfAnInverseInAGroup}
+\noindent\textbf{1.3 Uniqueness of an inverse in a group}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\Group{G^{\cdot}}\land(\Inv{b^{\cdot}}{a^{\cdot}}{\identity{G^{\cdot}}}{\operation{G^{\cdot}}}{\carrier{G^{\cdot}}}\land\Inv{c^{\cdot}}{a^{\cdot}}{\identity{G^{\cdot}}}{\operation{G^{\cdot}}}{\carrier{G^{\cdot}}}))}
+\stHave{1}{1}{((a^{\cdot}\owns\carrier{G^{\cdot}})\land((b^{\cdot}\owns\carrier{G^{\cdot}})\land(c^{\cdot}\owns\carrier{G^{\cdot}})))}{\hyperref[anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.6}}{0}
+\stHave{10}{2}{(b^{\cdot}=\bv{\operation{G^{\cdot}}}{b^{\cdot}}{\identity{G^{\cdot}}})}{\hyperref[theIdentityElementOfAMonoid]{DA\,BA\,1.10}, \hyperref[anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.5}, \hyperref[aMagmaBeingAGroup]{DA\,GT\,1.1}}{0,1}
+\stHave{11}{3}{(\bv{\operation{G^{\cdot}}}{b^{\cdot}}{\identity{G^{\cdot}}}=\bv{\operation{G^{\cdot}}}{b^{\cdot}}{\bv{\operation{G^{\cdot}}}{a^{\cdot}}{c^{\cdot}}})}{\hyperref[anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.6}, \hyperref[equalitySubstitution]{AS}}{0}
+\stHave{100}{4}{(\bv{\operation{G^{\cdot}}}{b^{\cdot}}{\bv{\operation{G^{\cdot}}}{a^{\cdot}}{c^{\cdot}}}=\bv{\operation{G^{\cdot}}}{\bv{\operation{G^{\cdot}}}{b^{\cdot}}{a^{\cdot}}}{c^{\cdot}})}{\hyperref[aBinaryOperationBeingAssociativeOnASet]{DA\,BA\,1.4}, \hyperref[aMagmaBeingASemigroup]{DA\,BA\,1.8}, \hyperref[aMagmaBeingAMonoid]{DA\,BA\,1.9}, \hyperref[aMagmaBeingAGroup]{DA\,GT\,1.1}}{0,1}
+\stHave{101}{5}{(\bv{\operation{G^{\cdot}}}{\bv{\operation{G^{\cdot}}}{b^{\cdot}}{a^{\cdot}}}{c^{\cdot}}=\bv{\operation{G^{\cdot}}}{\identity{G^{\cdot}}}{c^{\cdot}})}{\hyperref[anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.6}, \hyperref[equalitySubstitution]{AS}}{0}
+\end{fitchproof}
+\par\medskip
+\begin{fitchproof*}
+\stHave{110}{6}{(\bv{\operation{G^{\cdot}}}{\identity{G^{\cdot}}}{c^{\cdot}}=c^{\cdot})}{\hyperref[theIdentityElementOfAMonoid]{DA\,BA\,1.10}, \hyperref[anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.5}}{0,1}
+\stHave{111}{7}{(b^{\cdot}=c^{\cdot})}{\hyperref[equalitySubstitution]{AS}}{2,3,4,5,6}
+\close
+\stHave{1000}{8}{\forall G(\Group{G}>\forall a\forall b\forall c((\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}}\land\Inv{c}{a}{\identity{G}}{\operation{G}}{\carrier{G}})>(b=c)))}{$>$I, $\forall$I}{0-7}
+\end{fitchproof*}
+\endgroup
+\noindent\(\displaystyle \forall G(\Group{G}>\forall a\forall b\forall c((\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}}\land\Inv{c}{a}{\identity{G}}{\operation{G}}{\carrier{G}})>(b=c)))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theInverseElementOfAnElementInAGroup}
+\noindent\textbf{1.4 The inverse element of an element in a group}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{\forall G(\Group{G}>\forall a((a\owns\carrier{G})>\exists b\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}}))}{\hyperref[aMagmaBeingAGroup]{DA\,GT\,1.1}}{}
+\stHave{1}{1}{\forall G(\Group{G}>\forall a\forall b\forall c((\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}}\land\Inv{c}{a}{\identity{G}}{\operation{G}}{\carrier{G}})>(b=c)))}{\hyperref[uniquenessOfAnInverseInAGroup]{T\,GT\,1.3}}{}
+\stHave{10}{2}{\forall G(\Group{G}>\forall a((a\owns\carrier{G})>\exists^{\times}b\Inv{b}{a}{\identity{G}}{\operation{G}}{\carrier{G}}))}{D$\exists^{\times}$I}{0,1}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall G(\Group{G}>\forall a((a\owns\carrier{G})>\Inv{(\mathbf{theInverseElementOf} a\mathbf{In} G)}{a}{\identity{G}}{\operation{G}}{\carrier{G}}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theInverseOfTheInverse}
+\noindent\textbf{1.5 The inverse of the inverse}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\open
+\stHypo{0}{0}{(\Group{G^{\cdot}}\land(a^{\cdot}\owns\carrier{G^{\cdot}}))}
+\stHave{1}{1}{\Inv{(\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} a^{\cdot}\mathbf{In} G^{\cdot})}{a^{\cdot}}{\identity{G^{\cdot}}}{\operation{G^{\cdot}}}{\carrier{G^{\cdot}}}}{\hyperref[theInverseElementOfAnElementInAGroup]{DA\,GT\,1.4}}{0}
+\stHave{10}{2}{\Inv{a^{\cdot}}{(\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} a^{\cdot}\mathbf{In} G^{\cdot})}{\identity{G^{\cdot}}}{\operation{G^{\cdot}}}{\carrier{G^{\cdot}}}}{\hyperref[anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet]{DA\,BA\,1.6}, $\land$E, $\land$I}{1}
+\stHave{11}{3}{((\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} (\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} a^{\cdot}\mathbf{In} G^{\cdot})\mathbf{In} G^{\cdot})=a^{\cdot})}{\hyperref[theInverseElementOfAnElementInAGroup]{DA\,GT\,1.4}, \hyperref[uniquenessOfAnInverseInAGroup]{T\,GT\,1.3}}{0,1,2}
+\close
+\stHave{100}{4}{\forall G(\Group{G}>\forall a((a\owns\carrier{G})>((\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} (\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} a\mathbf{In} G)\mathbf{In} G)=a)))}{$>$I, $\forall$I}{0-3}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall G(\Group{G}>\forall a((a\owns\carrier{G})>((\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} (\hyperref[theInverseElementOfAnElementInAGroup]{\mathbf{theInverseElementOf}} a\mathbf{In} G)\mathbf{In} G)=a)))\)\par
+
+\clearpage\phantomsection\label{topologyTheory}\section{Topology}
+\phantomsection\label{topologicalSpaces}\subsection{Topological Spaces}
+
+% Source: Munkres, Topology, section 12; main (5).tex; binary-intersection form
+\par\bigskip\phantomsection\label{aSetBeingATopologyOnASet}
+\noindent\textbf{1.1 A set being a topology on a set}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall X\forall\mathcal{T}((\mathcal{T}\mathbf{isATopologyOn} X)\diamond(\sub{\mathcal{T}}{\pow{X}}\land((\emp\owns\mathcal{T})\land((X\owns\mathcal{T})\land(\forall S(\sub{S}{\mathcal{T}}>(\bigcup S\owns\mathcal{T}))\land\forall U\forall V(((U\owns\mathcal{T})\land(V\owns\mathcal{T}))>((U\cap V)\owns\mathcal{T})))))))\)\par
+
+% Source: Munkres section 12; main (5).tex, tuple-space convention
+\par\bigskip\phantomsection\label{aSetBeingATopologicalSpace}
+\noindent\textbf{1.2 A set being a topological space}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall P((P\mathbf{isATopologicalSpace} )\diamond((P\hyperref[aSetBeingATuple]{\mathbf{isATuple}} )\land(((\hyperref[theLengthOfATuple]{\mathbf{theLengthOf}} P)=2)\land\TopOn{\val{P}{1}}{\val{P}{0}})))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theUnderlyingSetOfATopologicalSpace}
+\noindent\textbf{1.3 The underlying set of a topological space}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{P^{\cdot}}{0}=\val{P^{\cdot}}{0})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{P^{\cdot}}{0})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{P^{\cdot}}{0})\land(Y=\val{P^{\cdot}}{0}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{P^{\cdot}}{0})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall P(\TopSpace{P}>((\mathbf{theUnderlyingSetOfTopologicalSpace} P)=\val{P}{0}))\)\par
+
+% Source: Authorial formalization from the preceding definitions
+\par\bigskip\phantomsection\label{theTopologyOfATopologicalSpace}
+\noindent\textbf{1.4 The topology of a topological space}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\val{P^{\cdot}}{1}=\val{P^{\cdot}}{1})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\val{P^{\cdot}}{1})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\val{P^{\cdot}}{1})\land(Y=\val{P^{\cdot}}{1}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\val{P^{\cdot}}{1})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall P(\TopSpace{P}>((\mathbf{theTopologyOf} P)=\val{P}{1}))\)\par
+
+% Source: Munkres section 12; main (5).tex
+\par\bigskip\phantomsection\label{aSetBeingOpenInATopologicalSpace}
+\noindent\textbf{1.5 A set being open in a topological space}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall P(\TopSpace{P}>\forall U((U\mathbf{isAnOpenSetOf} P)\diamond(U\owns\topology{P})))\)\par
+
+% Source: Munkres section 17: closed sets
+\par\bigskip\phantomsection\label{aSetBeingClosedInATopologicalSpace}
+\noindent\textbf{1.6 A set being closed in a topological space}\quad{\small defining axiom for a relation symbol}\par\smallskip
+\noindent\(\displaystyle \forall P(\TopSpace{P}>\forall C((C\mathbf{isAClosedSetOf} P)\diamond(\sub{C}{\spacecarrier{P}}\land((\spacecarrier{P}\sim C)\owns\topology{P}))))\)\par
+
+% Source: Munkres section 12, Example 2; main (5).tex
+\par\bigskip\phantomsection\label{theDiscreteTopologyOnASet}
+\noindent\textbf{1.7 The discrete topology on a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\pow{X^{\cdot}}=\pow{X^{\cdot}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\pow{X^{\cdot}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\pow{X^{\cdot}})\land(Y=\pow{X^{\cdot}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\pow{X^{\cdot}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall X((\mathbf{theDiscreteTopologyOn} X)=\pow{X})\)\par
+
+% Source: Munkres section 12, Example 2
+\par\bigskip\phantomsection\label{theDiscreteTopologyIsATopology}
+\noindent\textbf{1.8 The discrete topology is a topology}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\sub{\pow{X^{\cdot}}}{\pow{X^{\cdot}}}\land((\emp\owns\pow{X^{\cdot}})\land(X^{\cdot}\owns\pow{X^{\cdot}})))}{\hyperref[reflexivityOfInclusion]{T\,1.9}, \hyperref[theEmptySet]{DA\,1.13}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[thePowerSetOfASet]{DA\,1.25}}{}
+\stHave{1}{1}{\forall S(\sub{S}{\pow{X^{\cdot}}}>(\bigcup S\owns\pow{X^{\cdot}}))}{\hyperref[theUnionOfSetsInASet]{DA\,1.20}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[thePowerSetOfASet]{DA\,1.25}}{}
+\stHave{10}{2}{\forall U\forall V(((U\owns\pow{X^{\cdot}})\land(V\owns\pow{X^{\cdot}}))>((U\cap V)\owns\pow{X^{\cdot}}))}{\hyperref[theIntersectionOfTwoSets]{DA\,1.22}, \hyperref[aSetBeingASubsetOfASet]{DA\,1.8}, \hyperref[thePowerSetOfASet]{DA\,1.25}}{}
+\stHave{11}{3}{\forall X\TopOn{(\hyperref[theDiscreteTopologyOnASet]{\mathbf{theDiscreteTopologyOn}} X)}{X}}{\hyperref[aSetBeingATopologyOnASet]{DA\,TOP\,1.1}, \hyperref[theDiscreteTopologyOnASet]{DA\,TOP\,1.7}, $\land$I, $\forall$I}{0,1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall X\TopOn{(\hyperref[theDiscreteTopologyOnASet]{\mathbf{theDiscreteTopologyOn}} X)}{X}\)\par
+
+% Source: Munkres section 12, Example 2; main (5).tex
+\par\bigskip\phantomsection\label{theIndiscreteTopologyOnASet}
+\noindent\textbf{1.9 The indiscrete topology on a set}\quad{\small defining axiom for a function symbol}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\bind{\emp}{X^{\cdot}}=\bind{\emp}{X^{\cdot}})}{$=$I}{}
+\stHave{1}{1}{\exists X(X=\bind{\emp}{X^{\cdot}})}{$\exists$I}{0}
+\stHave{10}{2}{\forall X\forall Y(((X=\bind{\emp}{X^{\cdot}})\land(Y=\bind{\emp}{X^{\cdot}}))>(X=Y))}{\hyperref[equalitySubstitution]{AS}, $=$I}{}
+\stHave{11}{3}{\exists^{\times}X(X=\bind{\emp}{X^{\cdot}})}{D$\exists^{\times}$I}{1,2}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall X((\mathbf{theIndiscreteTopologyOn} X)=\bind{\emp}{X})\)\par
+
+% Source: Munkres section 12, Example 2
+\par\bigskip\phantomsection\label{theIndiscreteTopologyIsATopology}
+\noindent\textbf{1.10 The indiscrete topology is a topology}\quad{\small theorem}\par\smallskip
+\begingroup\small
+\begin{fitchproof}
+
+\stHave{0}{0}{(\sub{\bind{\emp}{X^{\cdot}}}{\pow{X^{\cdot}}}\land((\emp\owns\bind{\emp}{X^{\cdot}})\land(X^{\cdot}\owns\bind{\emp}{X^{\cdot}})))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[thePowerSetOfASet]{DA\,1.25}, \hyperref[reflexivityOfInclusion]{T\,1.9}, \hyperref[theEmptySet]{DA\,1.13}}{}
+\stHave{1}{1}{\forall S(\sub{S}{\bind{\emp}{X^{\cdot}}}>(((X^{\cdot}\owns S)>(\bigcup S=X^{\cdot}))\land(\backslash(X^{\cdot}\owns S)>(\bigcup S=\emp))))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[theUnionOfSetsInASet]{DA\,1.20}, \hyperref[equalityOfSets]{T\,1.6}}{}
+\stHave{10}{2}{\forall S(\sub{S}{\bind{\emp}{X^{\cdot}}}>(\bigcup S\owns\bind{\emp}{X^{\cdot}}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, D$\backslash$E, $\lor$E}{1}
+\stHave{11}{3}{\forall U\forall V(((U\owns\bind{\emp}{X^{\cdot}})\land(V\owns\bind{\emp}{X^{\cdot}}))>((U\cap V)\owns\bind{\emp}{X^{\cdot}}))}{\hyperref[theBindingOfTwoSets]{DA\,1.17}, \hyperref[theIntersectionOfTwoSets]{DA\,1.22}, \hyperref[equalityOfSets]{T\,1.6}, $\lor$E}{}
+\stHave{100}{4}{\forall X\TopOn{(\hyperref[theIndiscreteTopologyOnASet]{\mathbf{theIndiscreteTopologyOn}} X)}{X}}{\hyperref[aSetBeingATopologyOnASet]{DA\,TOP\,1.1}, \hyperref[theIndiscreteTopologyOnASet]{DA\,TOP\,1.9}, $\land$I, $\forall$I}{0,2,3}
+\end{fitchproof}
+\endgroup
+\noindent\(\displaystyle \forall X\TopOn{(\hyperref[theIndiscreteTopologyOnASet]{\mathbf{theIndiscreteTopologyOn}} X)}{X}\)\par
+
+\end{document}

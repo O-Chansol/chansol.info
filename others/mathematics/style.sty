@@ -1,0 +1,132 @@
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage[arrayenv=tabular,labelsep=0.7em,indent=0.7em,justsep=1em,cindent=0.7em] {fitch}
+\RequirePackage{xcolor}
+\RequirePackage[colorlinks=true,linkcolor=blue,filecolor=blue,urlcolor=blue] {hyperref}
+\RequirePackage{graphicx}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\normalfont}
+\AddToHook{cmd/subsection/before}{%
+  \ifnum\value{subsection}>0\relax\par\pagebreak[0]\fi
+}
+
+\newcommand{\Logic}{https://chansol.info/others/mathematicallogic/languageandmathematicallogic}
+\newcommand{\da}[1]{\by{DA, #1}{}}
+\renewcommand{\t}[1]{\by{T, #1}{}}
+\renewcommand{\a}[1]{\by{A, #1}{}}
+\newcommand{\as}[1]{\by{AS, #1}{}}
+\newcommand{\dbi}[1]{\by{D\(\iff\)I}{#1}}
+\newcommand{\dbe}[1]{\by{D\(\iff\)E}{#1}}
+\newcommand{\then}{>}
+\makeatletter
+\g@addto@macro\ndrules{\def\ie{\by{\(\then\)E}}}
+\makeatother
+\makeatletter
+\g@addto@macro\ndrules{\def\ii{\by{\(\then\)I}}}
+\makeatother
+\renewcommand{\iff}{\diamond}
+\newcommand{\falsum}{\triangle}
+\newcommand{\verum}{\triangledown}
+\renewcommand{\and}{\land}
+\newcommand{\Aemarker}{^{\cdot}}
+\renewcommand{\ae}[1]{\ae{#1}}
+\newcommand{\Ae}[1]{\Ae{#1}}
+
+\newcommand{\st}[1]{(#1\mathbin{\cdot})}
+\newcommand{\named}[2]{\hyperref[#1]{\mathbf{#2}}\allowbreak}
+\newcommand{\emp}{\hyperref[theEmptySet]{\bigcirc}}
+\newcommand{\pow}[1]{\hyperref[thePowerSetOfASet]{\mathcal{P}}(#1)}
+\newcommand{\sing}[1]{\{#1\}}
+\newcommand{\bind}[2]{\{#1,#2\}}
+\newcommand{\pair}[2]{\langle #1,#2\rangle}
+\newcommand{\dom}[1]{(\named{theDomainOfARelation}{theDomainOf}#1)}
+\newcommand{\ran}[1]{(\named{theRangeOfARelation}{theRangeOf}#1)}
+\newcommand{\val}[2]{(\named{theValueOfAFunctionAtASet}{theValueOf}#1\named{theValueOfAFunctionAtASet}{At}#2)}
+\newcommand{\stSuccessor}[1]{(\named{theSuccessorOfASet}{theSuccessorOf}#1)}
+\newcommand{\nat}{\hyperref[theSetOfTheNaturalNumbers]{\mathbb{N}}}
+\newcommand{\pzero}[1]{(\hyperref[theFirstProjectionOfAPair]{\pi_0}#1)}
+\newcommand{\pone}[1]{(\hyperref[theSecondProjectionOfAPair]{\pi_1}#1)}
+\newcommand{\Rel}[1]{(#1\named{aSetBeingARelation}{isARelation})}
+\newcommand{\Fun}[1]{(#1\named{aSetBeingAFunction}{isAFunction})}
+\newcommand{\Ind}[1]{(#1\named{aSetBeingInductive}{isInductive})}
+\newcommand{\Pair}[1]{(#1\named{aSetBeingAPair}{isAPair})}
+\newcommand{\sub}[2]{(#1\hyperref[aSetBeingASubsetOfASet]{\supset}#2)}
+\newcommand{\pid}[1]{(\named{theIdentityFunctionOnASet}{theIdentityFunctionOn}#1)}
+\newcommand{\prodset}[2]{(#1\hyperref[theCartesianProductOfTwoSets]{\times}#2)}
+\newcommand{\On}[2]{(#1\named{aRelationBeingOnASet}{isARelationOn}#2)}
+\newcommand{\Refl}[2]{(#1\named{aRelationBeingReflexiveOnASet}{isReflexiveOn}#2)}
+\newcommand{\Anti}[1]{(#1\named{aRelationBeingAntisymmetric}{isAntisymmetric})}
+\newcommand{\Trans}[1]{(#1\named{aRelationBeingTransitive}{isTransitive})}
+\newcommand{\PO}[2]{(#1\named{aRelationBeingAPartialOrderOnASet}{isAPartialOrderOn}#2)}
+
+
+% Bounded, wrapping columns keep Fitch derivations inside the page.
+\newcommand{\stProofFormula}[1]{\parbox[t]{0.62\textwidth}{\raggedright\mathsurround=0pt\(\displaystyle #1\)\strut}}
+\newcommand{\stProofReason}[1]{\parbox[t]{0.21\textwidth}{\raggedright #1\strut}}
+\newcommand{\tpow}[2]{{#1}^{#2}}
+\newcommand{\NRel}[3]{(#1\named{aSetBeingAnNAryRelation}{isAnNAryRelationOfArity}#2\named{aSetBeingAnNAryRelation}{On}#3)}
+\newcommand{\NFun}[4]{(#1\named{aFunctionBeingAnNAryFunction}{isAnNAryFunctionOfArity}#2\named{aFunctionBeingAnNAryFunction}{From}#3\named{aFunctionBeingAnNAryFunction}{To}#4)}
+\newcommand{\BinOp}[2]{(#1\named{aFunctionBeingABinaryOperation}{isABinaryOperationOn}#2)}
+\newcommand{\bv}[3]{(#2\,#1\,#3)}
+\newcommand{\Magma}[1]{(#1\named{anObjectBeingAMagma}{isAMagma})}
+\newcommand{\Monoid}[1]{(#1\named{aMagmaBeingAMonoid}{isAMonoid})}
+\newcommand{\Group}[1]{(#1\named{aMagmaBeingAGroup}{isAGroup})}
+\newcommand{\carrier}[1]{(\named{theUnderlyingSetOfAMagma}{theUnderlyingSetOf}#1)}
+\newcommand{\operation}[1]{(\named{theBinaryOperationOfAMagma}{theBinaryOperationOf}#1)}
+\newcommand{\identity}[1]{(\named{theIdentityElementOfAMonoid}{theIdentityElementOf}#1)}
+\newcommand{\Id}[3]{(#1\named{anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet}{isAnIdentityElementWithRespectTo}#2\named{anObjectBeingAnIdentityElementWithRespectToABinaryOperationOfASet}{Of}#3)}
+\newcommand{\Inv}[5]{(#1\named{anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet}{isAnInverseElementOf}#2\named{anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet}{WithRespectTo}#3\named{anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet}{Under}#4\named{anObjectBeingAnInverseElementOfAnElementWithRespectToABinaryOperationOfASet}{Of}#5)}
+\newcommand{\TopOn}[2]{(#1\named{aSetBeingATopologyOnASet}{isATopologyOn}#2)}
+\newcommand{\TopSpace}[1]{(#1\named{aSetBeingATopologicalSpace}{isATopologicalSpace})}
+\newcommand{\spacecarrier}[1]{(\named{theUnderlyingSetOfATopologicalSpace}{theUnderlyingSetOfTopologicalSpace}#1)}
+\newcommand{\topology}[1]{(\named{theTopologyOfATopologicalSpace}{theTopologyOf}#1)}
+
+
+% The original Fitch renderer suppresses formula-box heights. Measure each
+% wrapped row before flushing it, so the scope bars and rows share its height.
+\makeatletter
+\newsavebox{\stProofFormulaBox}
+\newsavebox{\stProofReasonBox}
+\newlength{\stProofRowHeight}
+\newlength{\stProofRowDepth}
+\newlength{\stProofRowTopHeight}
+\newcommand{\stProofJustification}[2]{\stProofReason{#1\if\relax\detokenize{#2}\relax\else\space(\ndref{#2})\fi}}
+\newcommand{\stProofRowSize}[2]{%
+  \sbox{\stProofFormulaBox}{$\stProofFormula{#1}$}%
+  \sbox{\stProofReasonBox}{#2}%
+  \setlength{\stProofRowDepth}{\dp\stProofFormulaBox}%
+  \ifdim\dp\stProofReasonBox>\stProofRowDepth
+    \setlength{\stProofRowDepth}{\dp\stProofReasonBox}\fi
+  \addtolength{\stProofRowDepth}{2pt}%
+  \setlength{\stProofRowHeight}{\ht\stProofFormulaBox}%
+  \ifdim\ht\stProofReasonBox>\stProofRowHeight
+    \setlength{\stProofRowHeight}{\ht\stProofReasonBox}\fi
+  \addtolength{\stProofRowHeight}{\stProofRowDepth}%
+  \addtolength{\stProofRowHeight}{2pt}%
+  \setlength{\stProofRowTopHeight}{\stProofRowHeight}%
+  \addtolength{\stProofRowTopHeight}{-1pt}%
+  % Alignment cells form groups; the row geometry must survive the first &.
+  \global\stProofRowDepth=\stProofRowDepth
+  \global\stProofRowHeight=\stProofRowHeight
+  \global\stProofRowTopHeight=\stProofRowTopHeight
+  \gdef\nd@height{\stProofRowHeight}%
+  \gdef\nd@depth{\stProofRowDepth}%
+  \gdef\nd@topheight{\stProofRowTopHeight}%
+}
+\newcommand{\stHave}[5]{%
+  \nd@cmd\nd@clr
+  \stProofRowSize{#3}{\stProofJustification{#4}{#5}}%
+  \have[#1]{#2}{\stProofFormula{#3}}%
+  \by{\stProofJustification{#4}{#5}}{}%
+  \nd@cmd\nd@clr
+}
+\newcommand{\stHypo}[3]{%
+  \nd@cmd\nd@clr
+  \stProofRowSize{#3}{\stProofJustification{}{}}%
+  \hypo[#1]{#2}{\stProofFormula{#3}}%
+  \nd@cmd\nd@clr
+}
+\makeatother
